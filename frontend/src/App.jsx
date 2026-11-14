@@ -68,7 +68,7 @@ function App() {
     corruption: 0.5,
     cropStage: 4,
     dialogue: dialogue.dialogue,
-    replacedNpcs: ["Jarnathan", "Meredeth"],
+    replacedNpcs: ["Jarnathan", "Herm"],
   },
   {
     monthName: "June",

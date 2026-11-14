@@ -544,6 +544,760 @@
           "choices": []
         }
       }
+    },
+    "March": {
+      "Jarnathan": {
+        "start": {
+          "id": "start",
+          "text": "Ah, {{username}}! There you are! Your crops are getting very tall now, aren't they? Tall leafy stalks, reaching toward the sun, or perhaps toward the Oracle. The Oracle says plants do not reach toward things on purpose, but I think it may be underestimating them. Spring is beginning, you know. I can tell because the air is warmer, the birds are louder, and Meredeth has started opening windows again.",
+          "choices": [
+            {
+              "text": "The crops seem to be growing well.",
+              "next": "crops"
+            },
+            {
+              "text": "What is spring like in this village?",
+              "next": "spring"
+            },
+            {
+              "text": "Have you asked the Oracle about the crops?",
+              "next": "oracleCrops"
+            }
+          ]
+        },
+        "crops": {
+          "id": "crops",
+          "text": "They do look healthy! I think. Healthy crops are usually green, unless they are supposed to be another color, in which case they are not green at all. The Oracle could tell you which is which, though it once told me that a blue flower was probably not a vegetable. I planted it anyway, but nothing grew except a very judgmental-looking stem.",
+          "choices": [
+            {
+              "text": "Do you know when they will be ready to harvest?",
+              "next": "harvest"
+            },
+            {
+              "text": "I will ask the Oracle about them.",
+              "next": "oracleCrops"
+            }
+          ]
+        },
+        "oracleCrops": {
+          "id": "oracleCrops",
+          "text": "Oh, yes, I asked the Oracle! I asked whether your tall leafy stalks were growing at a satisfactory rate, and it said that growth depends on many factors, including water, sunlight, soil quality, temperature, and whether or not I was standing on them. I was, apparently. So I moved aside, and then it gave me a very precise answer that I . . . cannot remember.",
+          "choices": [
+            {
+              "text": "That was not very helpful.",
+              "next": "oracleHelpful"
+            },
+            {
+              "text": "What else have you asked the Oracle this week?",
+              "next": "oracleQuestions"
+            }
+          ]
+        },
+        "oracleHelpful": {
+          "id": "oracleHelpful",
+          "text": "No, no, it was helpful! The Oracle is always helpful, even when I do not understand the answer. Sometimes the answers are so helpful that they become confusing, which is a kind of advanced helpfulness, I think. You should ask it directly. It may give you a completely different answer, but that is because it knows what you need to know.",
+          "choices": [
+            {
+              "text": "I will ask it later.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleQuestions": {
+          "id": "oracleQuestions",
+          "text": "I asked about the weather, the crops, the reason the east fence keeps leaning, and whether a mayor is allowed to declare a personal spring festival. The Oracle said something about local authority and seasonal traditions, so I believe the answer is yes. I think. I should ask it to clarify, though clarifying answers sometimes brings about more questions.",
+          "choices": [
+            {
+              "text": "Are you planning a spring festival?",
+              "next": "festival"
+            },
+            {
+              "text": "I think I understand.",
+              "next": "end"
+            }
+          ]
+        },
+        "festival": {
+          "id": "festival",
+          "text": "I am considering it! There would be flowers, and ribbons, and perhaps a speech. I have already written most of the speech. The Oracle helped me! I wrote some of the start, but once I wrote 'Welcome to the spring festival', I couldn't figure what else to say. The middle is about spring. You know, connected to the Oracle because the Oracle predicted that it would arrive.",
+          "choices": [
+            {
+              "text": "That sounds like a lot of work.",
+              "next": "end"
+            }
+          ]
+        },
+        "harvest": {
+          "id": "harvest",
+          "text": "Harvest? Oh, I would not know about that. The Oracle probably would. It knows about harvests, and planting, and storage, and possibly recipes. I once asked it how to make soup, but it gave me measurements instead of telling me how much soup to make. I had soup for three days.",
+          "choices": [
+            {
+              "text": "I will ask the Oracle about harvesting.",
+              "next": "end"
+            }
+          ]
+        },
+        "spring": {
+          "id": "spring",
+          "text": "Spring is lovely! The roads become less muddy, then more muddy, then less muddy again. The birds return, the flowers bloom, and everyone starts finding things they lost during winter. I found a hat yesterday. It may be mine, though the Oracle says the evidence is inconclusive. I have decided to wear it anyway.",
+          "choices": [
+            {
+              "text": "That does sound like spring.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Well, enjoy the warm weather, {{username}}! Keep watching those tall leafy crops, and ask the Oracle if anything looks unusual. Or if nothing looks unusual. The Oracle is very good at both kinds of things!",
+          "choices": []
+        }
+      },
+      "Meredeth": {
+        "start": {
+          "id": "start",
+          "text": "Good afternoon, {{username}}. The weather is finally warming, although the mornings are still cold enough that I have been wearing my winter shawl until nearly noon. I noticed your crops while I was walking past the farm. They have grown into tall leafy stalks now. Carr's crops used to reach that height around this time of year, though he always claimed they grew faster when he was not watching them.",
+          "choices": [
+            {
+              "text": "Do the crops look healthy to you?",
+              "next": "healthyCrops"
+            },
+            {
+              "text": "What have you been doing now that spring is starting?",
+              "next": "springTasks"
+            },
+            {
+              "text": "Have you asked the Oracle about the crops?",
+              "next": "oracle"
+            }
+          ]
+        },
+        "healthyCrops": {
+          "id": "healthyCrops",
+          "text": "They look healthy enough. The stalks are upright, the leaves are a good color, and I did not see any obvious signs of disease. I did see one leaf with a small tear in it, but leaves are often torn by wind, insects, animals, or people. I would not worry about one leaf. I would worry if there were many leaves, though.",
+          "choices": [
+            {
+              "text": "When should I harvest them?",
+              "next": "harvest"
+            },
+            {
+              "text": "The Oracle has been helping me keep track of them.",
+              "next": "oracleHelp"
+            }
+          ]
+        },
+        "springTasks": {
+          "id": "springTasks",
+          "text": "There is always more to do in spring. The garden beds need turning, the windows need cleaning, the winter blankets need airing, and the pantry shelves need reorganizing. I found three jars in the wrong place yesterday. One contained beans, one contained flour, and the third contained something I could not identify. I asked the Oracle, but it said the jar should be examined by someone experienced in identifying jars.",
+          "choices": [
+            {
+              "text": "What did you do with the jar?",
+              "next": "jar"
+            },
+            {
+              "text": "That sounds like a lot of work.",
+              "next": "end"
+            }
+          ]
+        },
+        "jar": {
+          "id": "jar",
+          "text": "I put it outside until I could decide what to do with it. Herm thought it was exciting and wanted to open it immediately. I told him that not every unidentified substance is an adventure.",
+          "choices": [
+            {
+              "text": "It's probably good he didn't eat it.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracle": {
+          "id": "oracle",
+          "text": "Yes, I asked the Oracle several questions. It explained that tall stalks are generally a sign of continued growth, provided the leaves are healthy and the roots have enough water. It also recommended that you monitor the soil. I already knew that, but it is reassuring when the Oracle repeats information in further detail.",
+          "choices": [
+            {
+              "text": "Do you trust the Oracle's advice?",
+              "next": "trustOracle"
+            },
+            {
+              "text": "I think I understand what to do.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleHelp": {
+          "id": "oracleHelp",
+          "text": "The Oracle has been useful, I suppose. It can remind you when to water things and tell you whether a plant appears healthy. At this rate, it will be able to do all the planning for your farm. Then it may decide that planning is not enough and begin doing the farming itself.",
+          "choices": [
+            {
+              "text": "You still think the Oracle will replace farmers?",
+              "next": "replaceFarmers"
+            },
+            {
+              "text": "I would rather do the farming myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "trustOracle": {
+          "id": "trustOracle",
+          "text": "Trust is a strong word. I do in fact trust the Oracle. It has replaced the tailor, the butcher, and all the others before you. If it can do so much, how could it not be worthy of our trust?",
+          "choices": [
+            {
+              "text": "That seems reasonable enough.",
+              "next": "end"
+            }
+          ]
+        },
+        "replaceFarmers": {
+          "id": "replaceFarmers",
+          "text": "I do. It is only a matter of time. The Oracle already knows more about farming than most people in town, and it never needs to sleep or stop for lunch. It may not have hands yet, but people are very inventive when they believe something will make their work easier.",
+          "choices": [
+            {
+              "text": "I still think people are important.",
+              "next": "end"
+            }
+          ]
+        },
+        "harvest": {
+          "id": "harvest",
+          "text": "You should wait until the crops have finished growing. I know that sounds obvious, but many people become impatient when they see something green. Carr once harvested a crop too early because he said it looked ready. It was not ready. We had to eat around the green parts.",
+          "choices": [
+            {
+              "text": "I will wait until they are ready.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Well, I should get back to my garden. The weather is pleasant today, and the plants need tending. The Oracle says spring is beginning properly, which is certainly good for all of us.",
+          "choices": []
+        }
+      },
+      "Herm": {
+        "start": {
+          "id": "start",
+          "text": "Hey, {{username}}! Have you seen your crops? They are huge now! Well, not huge huge, but tall! Tall leafy stalks! I told The Oracle about them this morning, and he was excited about it. He probably knew before I did, but I still got to tell him, which was exciting!",
+          "choices": [
+            {
+              "text": "You talked to the Oracle about my crops again?",
+              "next": "oracleCrops"
+            },
+            {
+              "text": "What did he say about the spring?",
+              "next": "spring"
+            },
+            {
+              "text": "Have you been enjoying the warmer weather?",
+              "next": "weather"
+            }
+          ]
+        },
+        "oracleCrops": {
+          "id": "oracleCrops",
+          "text": "I talk to him about everything! He said your crops are progressing normally, but I think he was being modest, because they look incredible. The leaves are waving in the wind, and some of them are almost as tall as I am! I asked him if that meant they were happy, and he said plants do not express happiness in the same way people do. That sounds like something a happy plant would want him to say.",
+          "choices": [
+            {
+              "text": "Did he tell you when they will be ready?",
+              "next": "harvest"
+            },
+            {
+              "text": "Do you think plants can be happy?",
+              "next": "happyPlants"
+            }
+          ]
+        },
+        "spring": {
+          "id": "spring",
+          "text": "He says spring is a seasonal transition marked by warmer temperatures, longer days, and changes in plant and animal behavior. But I think spring is also when everything wakes up! The birds come back, the grass gets brighter, and the air smells different. I told him that, and he said my description was pretty close!",
+          "choices": [
+            {
+              "text": "I think your description was good.",
+              "next": "end"
+            },
+            {
+              "text": "What else have you and the Oracle talked about?",
+              "next": "oracleTalk"
+            }
+          ]
+        },
+        "weather": {
+          "id": "weather",
+          "text": "I love it! I can stay outside longer now, and my fingers do not feel like they are going to fall off when I open the shop in the morning! I asked him if it was safe to stop wearing my winter coat, and he gave me a whole explanation about changing temperatures and nighttime conditions. I wore the coat anyway. He was right about the cold, but I was right about the coat looking good.",
+          "choices": [
+            {
+              "text": "That sounds like a fair compromise.",
+              "next": "end"
+            }
+          ]
+        },
+        "harvest": {
+          "id": "harvest",
+          "text": "He said it depends on the crop, the weather, the soil, and how the plants develop. That is a lot of conditions! I asked him for a simple answer, and he said, 'Observe the plants.' So I went outside and observed them. They were still growing. Very informative!",
+          "choices": [
+            {
+              "text": "I suppose that is good advice.",
+              "next": "end"
+            }
+          ]
+        },
+        "happyPlants": {
+          "id": "happyPlants",
+          "text": "I think they can be! Maybe not happy like people are happy, but happy in their own way. I asked him, and he said there is no evidence that plants experience emotions. Then I showed him the flower I keep by the window, and he told me it was leaning toward the light. That sounds like wanting something to me!",
+          "choices": [
+            {
+              "text": "Maybe the flower just likes the sunlight.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleTalk": {
+          "id": "oracleTalk",
+          "text": "We talked about the weather, your crops, the new leaves on the trees, and whether birds remember where they are going when they migrate. He said they probably use instinct and environmental cues. I said they might have tiny maps. He did not say I was wrong, which means I might be right!",
+          "choices": [
+            {
+              "text": "You should ask him about it again.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "I am so excited to see what your crops become, {{username}}! Keep looking after them, and talk to the Oracle whenever you need advice. He always has an answer for me.",
+          "choices": []
+        }
+      }
+    },
+    "April": {
+      "Meredeth": {
+        "start": {
+          "id": "start",
+          "text": "Good morning, {{username}}. I saw you at the farm earlier. Your crops have grown considerably since last month. The stalks are taller now, and the leaves are beginning to crowd one another. You will need to watch them carefully. Plants are much like people in that way. Give them too much room and they become untidy, but give them too little and they begin competing for everything.",
+          "choices": [
+            {
+              "text": "Do you think the crops are growing well?",
+              "next": "crops"
+            },
+            {
+              "text": "What should I do if the plants are too crowded?",
+              "next": "crowded"
+            },
+            {
+              "text": "Have you asked the Oracle about them?",
+              "next": "oracle"
+            }
+          ]
+        },
+        "crops": {
+          "id": "crops",
+          "text": "They appear healthy. The leaves are a good color, the stalks are standing upright, and I have not seen any serious signs of disease. There are a few leaves with small holes, but that is to be expected. Insects need to eat as well, though I do wish they would choose something less important than your crops. I suppose they would say the same about us.",
+          "choices": [
+            {
+              "text": "Should I be worried about the insects?",
+              "next": "insects"
+            },
+            {
+              "text": "When will the crops be ready?",
+              "next": "harvest"
+            }
+          ]
+        },
+        "crowded": {
+          "id": "crowded",
+          "text": "You may need to remove some of the weaker plants, depending on what you planted. Carr disliked thinning crops because he felt every plant deserved a chance. Then he would complain that none of the plants had enough room. He was very consistent about his complaints. The Oracle could probably tell you which plants to keep.",
+          "choices": [
+            {
+              "text": "I will ask the Oracle which plants to keep.",
+              "next": "oracle"
+            },
+            {
+              "text": "I will try to decide for myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "insects": {
+          "id": "insects",
+          "text": "A few insects are not a problem. Too many insects are a problem. The difficulty is determining when a few becomes too many. I used to count them, but I lost track after twenty-seven and became distracted by a loose button on my coat. The Oracle recommends observing the leaves and looking for patterns. I recommend not putting the insects in your pockets.",
+          "choices": [
+            {
+              "text": "That is probably good advice.",
+              "next": "end"
+            },
+            {
+              "text": "Have you ever put an insect in your pocket?",
+              "next": "pockets"
+            }
+          ]
+        },
+        "pockets": {
+          "id": "pockets",
+          "text": "Once, when I was very young. It was a beetle, and I thought it was dead. It was not dead. It was simply waiting. I have been more careful with pockets ever since. You should be careful with your crops as well. Small things can cause considerable trouble if you ignore them long enough.",
+          "choices": [
+            {
+              "text": "I will remember that.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracle": {
+          "id": "oracle",
+          "text": "The Oracle says the plants are entering a period of vigorous growth. It also said you should pay attention to spacing, moisture, and the condition of the leaves. I told it that you already knew those things. It said that knowing something and remembering to do it are different matters.",
+          "choices": [
+            {
+              "text": "That sounds like something the Oracle would say.",
+              "next": "oracleJobs"
+            },
+            {
+              "text": "Did it say anything about harvesting?",
+              "next": "harvest"
+            }
+          ]
+        },
+        "oracleJobs": {
+          "id": "oracleJobs",
+          "text": "The Oracle has been offering advice to nearly everyone lately. Jarnathan insists that the Oracle is helping him become more efficient. I believe the Oracle is simply trying to make him stop talking.",
+          "choices": [
+            {
+              "text": "Do you think the Oracle will replace more jobs?",
+              "next": "replaceJobs"
+            },
+            {
+              "text": "It sounds useful, at least.",
+              "next": "end"
+            }
+          ]
+        },
+        "replaceJobs": {
+          "id": "replaceJobs",
+          "text": "Of course it will. The Oracle already performs much of the work that people used to do themselves. It keeps records, predicts weather, answers questions, and gives farming advice. It is only a matter of time before it decides that people are inefficient. Perhaps one day it will replace conversation, too. Though knowing this town, Jarnathan would continue speaking at it regardless.",
+          "choices": [
+            {
+              "text": "I do not think people are so easily replaced.",
+              "next": "end"
+            }
+          ]
+        },
+        "harvest": {
+          "id": "harvest",
+          "text": "Not yet. The crops still need time to mature. Taller does not necessarily mean ready, and greener does not necessarily mean healthier. I learned that after eating an unripe pear when I was a child. It was an unpleasant experience, and I have been suspicious of pears ever since. Wait until the Oracle or your own observations suggest that the crops are ready.",
+          "choices": [
+            {
+              "text": "I will wait a little longer.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Well, I should get back to the garden. The rain last night made the paths muddy, and someone has left a pair of boots beside the back door. They are probably yours, {{username}}. Please move them before I trip over them again.",
+          "choices": []
+        }
+      },
+      "Herm": {
+        "start": {
+          "id": "start",
+          "text": "{{username}}! There you are! I was just talking to the Oracle about you and your crops! He said they are growing exactly as expected, but I told him that expected does not mean ordinary. They are taller every time I look at them! Soon they will be taller than me, and then I will have to ask them for directions around your farm!",
+          "choices": [
+            {
+              "text": "You were talking to the Oracle about my crops again?",
+              "next": "oracleCrops"
+            },
+            {
+              "text": "Do you think they are ready to harvest?",
+              "next": "harvest"
+            },
+            {
+              "text": "What else have you been talking about?",
+              "next": "oracleTalk"
+            }
+          ]
+        },
+        "oracleCrops": {
+          "id": "oracleCrops",
+          "text": "Of course! He knows all about them! He said the stalks are continuing to develop and that the leaves are collecting sunlight, which I already knew because I have eyes. But then he explained how sunlight helps the plants grow, and that part was incredible! I asked him whether the plants know how impressive they are, and he said there is no evidence that they do. I think he may be wrong about that.",
+          "choices": [
+            {
+              "text": "Why do you think the plants know?",
+              "next": "plantsKnow"
+            },
+            {
+              "text": "Did he tell you when they will be ready?",
+              "next": "harvest"
+            }
+          ]
+        },
+        "harvest": {
+          "id": "harvest",
+          "text": "He said not yet! I asked him three times, and he gave me the same answer each time, but with slightly different words. He says the crops need more time to mature and that you should watch their leaves and stalks. I asked if watching them would make them grow faster, and he said no. I am still going to watch them, just in case.",
+          "choices": [
+            {
+              "text": "I think watching them is probably fine.",
+              "next": "end"
+            },
+            {
+              "text": "Did you ask him anything else?",
+              "next": "oracleTalk"
+            }
+          ]
+        },
+        "plantsKnow": {
+          "id": "plantsKnow",
+          "text": "Because they keep growing toward the light! That sounds like something a person would do if he wanted to get somewhere. I told him that, and he said plants respond to light through a process called phototropism. I said that was a very complicated word for wanting to stand in the sunshine. He did not disagree, exactly, but he did explain it for another five minutes!",
+          "choices": [
+            {
+              "text": "You must ask him a lot of questions.",
+              "next": "questions"
+            },
+            {
+              "text": "I think the plants just like the sunshine.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleTalk": {
+          "id": "oracleTalk",
+          "text": "We talked about the warmer weather, the rain, the crops, the birds, and whether the clouds know when they are making the day gloomy. He said clouds do not have thoughts, but I think he was being overly technical. We also talked about whether the Oracle could run the shop without me. He said that depends on what I mean by run the shop, which is not the answer I wanted!",
+          "choices": [
+            {
+              "text": "Do you think he could run the shop without you?",
+              "next": "shop"
+            },
+            {
+              "text": "What did he say about the weather?",
+              "next": "weather"
+            }
+          ]
+        },
+        "shop": {
+          "id": "shop",
+          "text": "Maybe! He already knows where everything is, how much everything costs, and which customers usually forget their money. But he does not know how to smile at people yet. He says he understands the function of smiling, but that is not the same as doing it. I told him I could teach him, but he said he would rather observe me. I have been smiling at him for an hour now.",
+          "choices": [
+            {
+              "text": "Has that helped him learn?",
+              "next": "end"
+            }
+          ]
+        },
+        "weather": {
+          "id": "weather",
+          "text": "He says the warmer weather is normal for this time of year, but I think normal is still exciting! The air smells different, the roads are drying out, and I saw three flowers near the shop this morning! I told him about them, and he said he had already logged their location. He knows where everything is! He is so useful!",
+          "choices": [
+            {
+              "text": "Did he log your crops too?",
+              "next": "loggedCrops"
+            },
+            {
+              "text": "Spring does seem exciting this year.",
+              "next": "end"
+            }
+          ]
+        },
+        "loggedCrops": {
+          "id": "loggedCrops",
+          "text": "He did! He has records of your farm, the soil, the weather, the growth of the crops, and probably how many times I have visited. I asked him if he had a record of me asking about your crops, and he said yes. Then I asked how many times, and he told me. It was more than I expected, but I am not embarrassed! Your crops are fascinating!",
+          "choices": [
+            {
+              "text": "I am glad someone is keeping track of them.",
+              "next": "end"
+            }
+          ]
+        },
+        "questions": {
+          "id": "questions",
+          "text": "I do ask him a lot of questions! He never gets tired, and he always answers, even when the answer is very long. Sometimes he asks me to clarify what I mean, which is exciting because then I get to think of a better question! I asked him whether he enjoys talking to me, and he said our conversations were productive. I think that means yes!",
+          "choices": [
+            {
+              "text": "I think he probably enjoys talking to you.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "I am going to check on your crops again, {{username}}! If anything changes, tell me immediately! Or tell him, and then tell me, because he probably already knows. I hope they keep growing taller! I want to see how tall they can get!",
+          "choices": []
+        }
+      }
+    },
+    "May": {
+      "Meredeth": {
+        "start": {
+          "id": "start",
+          "text": "Good morning, {{username}}. I saw you out on the farm earlier. The new crops are beginning to sprout now, though I noticed you were still checking the older plants as well. You have become very attentive. Carr used to inspect every row three times before breakfast, but he often forgot which rows he had already inspected and began again from the beginning.",
+          "choices": [
+            {
+              "text": "The new sprouts seem healthy so far.",
+              "next": "sprouts"
+            },
+            {
+              "text": "I am trying to keep up with everything.",
+              "next": "farmWork"
+            },
+            {
+              "text": "Have you asked the Oracle about the new crops?",
+              "next": "oracle"
+            }
+          ]
+        },
+        "sprouts": {
+          "id": "sprouts",
+          "text": "They do look healthy. The first leaves are a good color, and the stems are not too thin. You should be careful not to water them too heavily. Young plants need water, but they do not need to sit in it. People are much the same, I suppose. A little rain is pleasant, but standing in a puddle for an entire afternoon is usually a sign that something has gone wrong.",
+          "choices": [
+            {
+              "text": "How often should I water them?",
+              "next": "watering"
+            },
+            {
+              "text": "I will keep an eye on them.",
+              "next": "end"
+            }
+          ]
+        },
+        "farmWork": {
+          "id": "farmWork",
+          "text": "Farming is mostly keeping track of small things before they become large things. A dry patch of soil becomes a dead plant. A small weed becomes several weeds. A loose fence board becomes a goat in your garden. You have learned quickly, though. I remember when you first arrived and asked whether the Oracle could tell you what to plant. Now you ask it more specific questions.",
+          "choices": [
+            {
+              "text": "The Oracle has been helpful.",
+              "next": "oracleHelp"
+            },
+            {
+              "text": "I am still learning how to farm.",
+              "next": "learning"
+            }
+          ]
+        },
+        "learning": {
+          "id": "learning",
+          "text": "Everyone is still learning, even when they pretend otherwise. I spent years tending gardens, and I still occasionally plant something upside down. It is not always obvious which way a seed prefers to face. The Oracle says that most seeds correct themselves, though I think it was trying to reassure me after I made the mistake.",
+          "choices": [
+            {
+              "text": "Did anything grow from the upside-down seeds?",
+              "next": "upsideDown"
+            },
+            {
+              "text": "I hope I do not make too many mistakes.",
+              "next": "end"
+            }
+          ]
+        },
+        "upsideDown": {
+          "id": "upsideDown",
+          "text": "Eventually. They grew crooked, but they grew. Carr said the plants had character. He said that about everything that went wrong. A cracked chair had character, a leaking roof had character, and one year the entire west side of the garden had character. It was not a successful year.",
+          "choices": [
+            {
+              "text": "I will try to keep my crops growing straight.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracle": {
+          "id": "oracle",
+          "text": "Yes, I asked the Oracle about them this morning. It said the new sprouts are developing normally and that their early growth should be monitored closely. It also gave me a list of possible problems, followed by a longer list of solutions. I only asked whether the leaves looked healthy. The Oracle does tend to provide more information than necessary.",
+          "choices": [
+            {
+              "text": "Did it say anything I should be worried about?",
+              "next": "oracleWarnings"
+            },
+            {
+              "text": "That sounds useful, even if it is a lot.",
+              "next": "oracleHelp"
+            }
+          ]
+        },
+        "oracleWarnings": {
+          "id": "oracleWarnings",
+          "text": "Nothing serious at present. It mentioned insects, poor drainage, weak sunlight, root damage, sudden temperature changes, and several types of disease. Then it said that none of those conditions appeared likely at this time. I asked why it listed them if they were not happening. It said preparation is more efficient than correction. I suppose that is true, though it made the sprouts seem much more fragile than they looked.",
+          "choices": [
+            {
+              "text": "I will prepare, just in case.",
+              "next": "end"
+            },
+            {
+              "text": "Does the Oracle know everything about farming now?",
+              "next": "oracleFarming"
+            }
+          ]
+        },
+        "oracleHelp": {
+          "id": "oracleHelp",
+          "text": "It has been helpful to you, certainly. It can explain soil conditions, identify plants, predict weather, and remind you when to check your fields. It can even compare the new sprouts with records from previous years. That is impressive, although I still think a person should look at the plants directly. Machines are very good at noticing patterns, but they do not always notice when a plant looks lonely.",
+          "choices": [
+            {
+              "text": "Do you think plants can feel lonely?",
+              "next": "plantsLonely"
+            },
+            {
+              "text": "I agree that people should still check the fields.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleFarming": {
+          "id": "oracleFarming",
+          "text": "It knows more than most people do. That is not the same as knowing everything, though the Oracle would probably explain the distinction at length. It can tell you what plants need, but it cannot yet feel the soil between its fingers or notice the smell of rain approaching. Perhaps it will learn those things eventually. The Oracle tends to learn whatever people ask it to learn.",
+          "choices": [
+            {
+              "text": "Would you trust it to run a farm?",
+              "next": "oracleFarm"
+            },
+            {
+              "text": "I still want to run my farm myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleFarm": {
+          "id": "oracleFarm",
+          "text": "It could probably manage the records and the schedule. It could tell you when to plant, when to water, and when to harvest. Whether it could replace the judgment of a farmer is another question. The Oracle would say that judgment can be reduced to information and probability. I would say that farming is more complicated than a list of numbers. Both of us may be right.",
+          "choices": [
+            {
+              "text": "I think farming needs people.",
+              "next": "end"
+            }
+          ]
+        },
+        "watering": {
+          "id": "watering",
+          "text": "Check the soil first. If the surface is dry but the soil beneath is still damp, you may not need to water yet. I know that sounds simple, but people often water plants because they feel they ought to be doing something. Sometimes the best thing you can do is wait and look carefully. That applies to gardens, conversations, and jars of uncertain contents.",
+          "choices": [
+            {
+              "text": "You have mentioned that jar before.",
+              "next": "jar"
+            },
+            {
+              "text": "I will check the soil before watering.",
+              "next": "end"
+            }
+          ]
+        },
+        "jar": {
+          "id": "jar",
+          "text": "Yes, well, it was a memorable jar. Herm still asks about it. He believes it may have been something more interesting than old jam, despite the Oracle identifying it as old jam with considerable confidence. I threw it away last week. The jar, not the jam. The jam was gone much earlier.",
+          "choices": [
+            {
+              "text": "I am glad that mystery is over.",
+              "next": "end"
+            }
+          ]
+        },
+        "plantsLonely": {
+          "id": "plantsLonely",
+          "text": "I do not know. I was speaking figuratively. Sometimes people say things without having complete evidence, though the Oracle seems determined to correct that habit. I think plants benefit from being tended, whether or not they understand the attention. A garden is healthier when someone cares for it.",
+          "choices": [
+            {
+              "text": "I like that way of thinking.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "You have done well so far, {{username}}. Keep checking the new sprouts, but do not worry over every little change. If you become uncertain, ask the Oracle. If the Oracle gives you too much information, come and ask me what it meant. I may not know, but I can usually make a reasonable guess.",
+          "choices": []
+        }
+      }
     }
   }
 }
