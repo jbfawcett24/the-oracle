@@ -3,6 +3,7 @@ import OraclePage from './pages/OraclePage'
 import './App.css'
 import FarmPage from './pages/FarmPage'
 import Overlay from './Overlay'
+import Village from './pages/village/Village'
 
 function App() {
   // setScreen will be used when the other screens are added.
@@ -28,7 +29,11 @@ function App() {
           toFarm={toFarm}
           toTown={toTown}
         >
-          <>boobs</>
+          <>
+            <Village>
+              
+            </Village>
+          </>
         </Overlay>
       )
 

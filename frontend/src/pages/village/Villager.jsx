@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 
 
 export default function Villager({ name }){
@@ -34,7 +36,12 @@ export default function Villager({ name }){
             return(
                 <div
                     css={{
-                        hei
+                        height: "100px",
+                        width: "50px",
+                        border: "solid black 2px",
+                        position: "absolute",
+                        top: "40vh",
+                        left: "25vw"
                     }}>
 
                 </div>
@@ -42,10 +49,33 @@ export default function Villager({ name }){
     
         case "Meredeth":
 
-            break;
-        case "Herm":
+            return(
+                <div
+                    css={{
+                        height: "100px",
+                        width: "50px",
+                        border: "solid black 2px",
+                        position: "absolute",
+                        top: "75vh",
+                        left: "48vw"
+                    }}>
 
-            break;
+                </div>
+            )
+        case "Herm":
+            return(
+                <div
+                    css={{
+                        height: "100px",
+                        width: "50px",
+                        border: "solid black 2px",
+                        position: "absolute",
+                        top: "40vh",
+                        right: "25vw"
+                    }}>
+
+                </div>
+            )
         default:
             break;
     }

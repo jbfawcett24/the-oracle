@@ -6,7 +6,7 @@ export default function Village({ }) {
             <Villager name={"Jarnathan"}>
 
             </Villager>
-            <Villager name={"Meredith"}>
+            <Villager name={"Meredeth"}>
 
             </Villager>
             <Villager name={"Herm"}>
