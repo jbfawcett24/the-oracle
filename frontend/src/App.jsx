@@ -44,6 +44,39 @@ function App() {
 
     }
   },
+  {
+    monthName: "April",
+    monthlyIssue: "Your plants are dying, they need Water!",
+    monthlySolution: ["Use 7 units of Water", 7],
+    itemsNeeded: "water",
+    corruption: 0.375,
+    cropStage: 3,
+    dialogue: {
+
+    }
+  },
+  {
+    monthName: "May",
+    monthlyIssue: "Your plants are dying, they need fertilizer",
+    monthlySolution: ["Use 2 units of fertilizer", 2],
+    itemsNeeded: "fertilizer",
+    corruption: 0.5,
+    cropStage: 4,
+    dialogue: {
+
+    }
+  },
+  {
+    monthName: "June",
+    monthlyIssue: "Your plants are dying, they need water!",
+    monthlySolution: ["Use 8 units of fertilizer", 8],
+    itemsNeeded: "water",
+    corruption: 0.625,
+    cropStage: 5,
+    dialogue: {
+
+    }
+  },
 
   ])
 
@@ -120,7 +153,7 @@ function App() {
     case ("town"):
       return (
         <Overlay
-          month={currentMonth.monthName}
+          month={currentMonth.monthName}gameState
           screen={screen}
           toOracle={toOracle}
           toFarm={toFarm}
