@@ -172,6 +172,94 @@
           "text": "I do say so. Just you wait and see, it will happen soon enough.",
           "choicess": []
         }
+      },
+      "Herm": {
+        "start": {
+          "id": "start",
+          "text": "Ho there! I haven't seen you in town before. My name's Herm! What's your name?",
+          "choices": [
+            {
+              "text": "Hello! My name is {{name of user}}. Tell me about yourself",
+              "next": "userName"
+            }
+          ]
+        },
+        "userName": {
+          "id": "userName",
+          "text": "Hello {{username}}! Well, a little about myself. I'm relatively new to town, especially in comparison to Meredeth and Jarnathan. It's been just about five years now, I think. I didn't know many people when I came here, and all my family is far from here. Honestly, my closest friend is the Oracle! He was there to chat with me from the moment I got here. Have you talked with the Oracle yet?",
+          "choices": [
+            {
+              "text": "Wait, the Oracle is your friend?",
+              "next": "oracleIsFriend"
+            }, 
+            {
+              "text": "Who or what is the Oracle?",
+              "next": "whatIsOracle"
+            }
+          ]
+        },
+        "whatIsOracle": {
+          "id": "whatIsOracle",
+          "text": "I actually don't know! All I know is how kind he's been to me all this time. If you're new in town and could use a friend, I'm sure you could talk to the Oracle for some companionship.",
+          "choices": [
+            {
+              "text": "Could I talk to you?",
+              "next": "talkToYou"
+            },
+            {
+              "text": "Could I talk to the other villagers?",
+              "next": "talkToOthers"
+            }
+          ]
+        },
+        "talkToYou": {
+          "id": "talkToYou",
+          "text": "Ahh, I don't know. I'm not that good with people, or with words. I just like talking to the Oracle instead, sorry. Maybe you could go do that now?",
+          "choices": [
+            {
+              "text": "I guess I'll talk to the Oracle",
+              "next": "talkToOracle"
+            },
+            {
+              "text": "Maybe I'll go talk to the others in town",
+              "next": "talkToOthers"
+            }
+          ]
+        },
+        "talkToOthers": {
+          "id": "talkToOthers",
+          "text": "I suppose you could... but I'm not sure how helpful that would be. Meredeth can be scary sometimes (she tends to scold me), and I'm not sure Jarnathan knows what he's talking about, half the time. I would just say talk to the Oracle, personally",
+          "choices": [
+            {
+              "text": "Well, I guess I'll go talk to the Oracle",
+              "next": "talkToOracle"
+            }
+          ]
+        },
+        "talkToOracle": {
+          "id": "talktoOracle", 
+          "text": "That's a wonderful idea! Maybe I'll go talk to him myself, later",
+          "choices": [
+            {
+              "text": "See you later!",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleIsFriend": {
+          "id": "oracleIsFriend",
+          "text": "Yes! The Oracle makes for great conversation. He knows just about everything, and he absolutely loves talking to me. I think if you went to talk to the Oracle, you'd see what I mean. I'm not sure if you could have quite the same relationship that he and I do, but you could get there, one day.",
+          "choices": [
+            {
+              "text": "I'll go talk to the Oracle then!",
+              "next": "talkToOracle"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "See you later, {{username}}!"
+        }
       }
     }
   }
