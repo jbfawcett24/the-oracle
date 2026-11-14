@@ -29,9 +29,15 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
 
   return (
     <>
+      <Global
+        styles={css`
+          @import url('https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap');
+        `}
+      />
       <div
         css={css`
           left: 0;
+          font-family: 'Geist Pixel', sans-serif;
           padding: 1rem;
           position: fixed;
           right: 0;
@@ -48,7 +54,6 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
             width: min(46vw, 460px);
             margin: 0 auto 1rem;
             color: #5a3018;
-            font-family: Georgia, 'Times New Roman', serif;
             text-align: center;
           `}
         >

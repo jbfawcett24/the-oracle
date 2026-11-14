@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { css, Global } from "@emotion/react"
 import { useState } from "react"
 import { createPortal } from "react-dom"
 import TypewriterText from "../../components/TypewriterText"
@@ -43,53 +44,54 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
     setCurrentNodeId(choice.next)
   }
 
-  const dialog = (
-    <div
-      onClick={(event) => event.stopPropagation()}
-      css={{
-        position: "fixed",
-        zIndex: 20,
-        left: "50%",
-        bottom: "1rem",
-        width: "min(760px, calc(100vw - 2rem))",
-        transform: "translateX(-50%)",
-        padding: "1.25rem",
-        border: "4px solid #2b1a12",
-        borderRadius: "8px",
-        color: "white",
-        boxShadow: "4px 4px 0 rgba(0, 0, 0, 0.35)",
-        isolation: "isolate",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          zIndex: -1,
-          top: "-25px",
-          right: "-25px",
-          bottom: "-25px",
-          left: "-25px",
-          borderRadius: "8px",
-          backgroundImage: "url('/DialogueBox.webp')",
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        },
-      }}
-    >
-      <div
-        aria-label={`${characterName} sprite`}
-        css={{
-          position: "absolute",
-          right: "1rem",
-          bottom: "calc(40% + 0.5rem)",
-          width: "200px",
-          height: "250px",
-          zIndex: -2,
-          backgroundImage: `url('${characterImages[characterName]}')`,
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+    const dialog = (
+        <div
+            onClick={(event) => event.stopPropagation()}
+            css={{
+                position: "fixed",
+                zIndex: 20,
+                left: "50%",
+                bottom: "1rem",
+                width: "min(760px, calc(100vw - 2rem))",
+                transform: "translateX(-50%)",
+                padding: "1.25rem",
+                fontFamily: "'Geist Pixel', sans-serif",
+                border: "4px solid #2b1a12",
+                borderRadius: "8px",
+                color: "#2b1a12",
+                boxShadow: "4px 4px 0 rgba(0, 0, 0, 0.35)",
+                isolation: "isolate",
+                "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    zIndex: -1,
+                    top: "-25px",
+                    right: "-25px",
+                    bottom: "-25px",
+                    left: "-25px",
+                    borderRadius: "8px",
+                    backgroundImage: "url('/DialogueBox.webp')",
+                    backgroundSize: "100% 100%",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                },
+            }}
+        >
+            <div
+                aria-label={`${characterName} sprite`}
+                css={{
+                    position: "absolute",
+                    right: "1rem",
+                    bottom: "calc(40% + 0.5rem)",
+                    width: "200px",
+                    height: "250px",
+                    zIndex: -2,
+                    backgroundImage: `url('${characterImages[characterName]}')`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                }}
+            />
 
       <h2>{characterName}</h2>
       <p css={{ margin: "0.5rem 0 1rem" }}>
@@ -119,5 +121,14 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
     </div>
   )
 
-  return createPortal(dialog, document.body)
+    return (
+        <>
+            <Global
+                styles={css`
+                    @import url('https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap');
+                `}
+            />
+            {createPortal(dialog, document.body)}
+        </>
+    )
 }
