@@ -38,7 +38,8 @@ export default function Villager({ name, currentMonth, gameState }) {
             backgroundImage: "url('/Johnathan.webp')",
             backgroundSize: "100% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            filter: "drop-shadow(10px 8px 3px rgba(42, 25, 9, 0.45))"
           }}>
           {dialogBox}
         </div>
@@ -59,7 +60,8 @@ export default function Villager({ name, currentMonth, gameState }) {
             backgroundImage: "url('/Meredith.webp')",
             backgroundSize: "100% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            filter: "drop-shadow(10px 8px 3px rgba(42, 25, 9, 0.45))"
           }}>
           {dialogBox}
         </div>
@@ -78,7 +80,8 @@ export default function Villager({ name, currentMonth, gameState }) {
             backgroundImage: "url('/Herm.webp')",
             backgroundSize: "100% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            filter: "drop-shadow(10px 8px 3px rgba(42, 25, 9, 0.45))"
           }}>
           {dialogBox}
 
