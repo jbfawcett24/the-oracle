@@ -3,9 +3,9 @@ import { css } from '@emotion/react'
 import FarmItemPopup from '../components/FarmItemPopup'
 
 const crops = [
-  { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', image: '/Carrot.webp' },
-  { id: 'potato', name: 'Potato', packet: '/Potato_Packet.webp', image: '/Potatoes.webp' },
-  { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', image: '/Wheat.webp' },
+  { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', sprite: '/CarrotAssets.webp' },
+  { id: 'potato', name: 'Potato', packet: '/Potato_Packet.webp', sprite: '/PotatoAssets.webp' },
+  { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', sprite: '/WheatAssets.webp' },
 ]
 
 // Percentage positions match the five tilled fields in the widened Farm.webp.
@@ -78,11 +78,12 @@ const plantedTile = css`
   width: var(--crop-tile-width);
   height: var(--crop-tile-height);
   flex: 0 0 var(--crop-tile-width);
-  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
   filter: drop-shadow(1px 2px 1px rgba(42, 25, 9, 0.28));
 `
 
-export default function FarmPage({ planted, setPlanted }) {
+export default function FarmPage({ planted, setPlanted, cropStage = 0 }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
@@ -133,6 +134,9 @@ export default function FarmPage({ planted, setPlanted }) {
     ))
     setSelectedPlot(null)
   }
+
+  const normalizedCropStage = Math.max(0, Math.min(7, Number(cropStage) || 0))
+  const cropStagePosition = `${(normalizedCropStage % 4) * (100 / 3)}% ${Math.floor(normalizedCropStage / 4) * 100}%`
 
   return (
     <main css={page}>
@@ -203,11 +207,13 @@ export default function FarmPage({ planted, setPlanted }) {
                         aria-label="Empty plot space"
                       />
                     ) : (
-                      <img
+                      <span
                         key={`${crop.id}-${cropIndex}`}
                         css={plantedTile}
-                        src={crop.image}
-                        alt=""
+                        style={{
+                          backgroundImage: `url(${crop.sprite})`,
+                          backgroundPosition: cropStagePosition,
+                        }}
                       />
                     )
                   ))}

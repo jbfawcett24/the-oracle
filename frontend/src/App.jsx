@@ -13,6 +13,7 @@ function App() {
   const [playerFacts, setPlayerFacts] = useState([])
   const [corruption, setCorruption] = useState(0)
   const [planted, setPlanted] = useState({})
+  const cropStage = 0
   const [gameState, setGameState] = useState({
       monthName: "January",
       monthlyIssue: "",
@@ -98,7 +99,8 @@ function App() {
         >
           <FarmPage
             planted={planted}
-            setPlanted={setPlanted} />
+            setPlanted={setPlanted}
+            cropStage={cropStage} />
         </Overlay>
       )
 
