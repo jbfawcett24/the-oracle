@@ -33,6 +33,7 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
           z-index: 10;
           width: 100vw;
           height: 100vh;
+          pointer-events: none;
         `}
       >
         <header
@@ -67,6 +68,7 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
                 position: fixed;
                 top: 50%;
                 transform: translateY(-50%);
+                pointer-events: auto;
               `}
             >
               ←
@@ -94,6 +96,7 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
                 right: 0;
                 top: 50%;
                 transform: translateY(-50%);
+                pointer-events: auto;
               `}
             >
               →
@@ -109,6 +112,7 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
               left: 50%;
               position: fixed;
               transform: translateX(-50%);
+              pointer-events: auto;
             `}
           >
             ↓

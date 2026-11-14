@@ -7,13 +7,13 @@ const crops = [
   { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', image: '/Wheat.webp' },
 ]
 
-// Percentage positions keep the drop zones aligned with Farm.webp at any size.
+// Percentage positions match the five tilled fields in the widened Farm.webp.
 const plotAreas = [
-  { left: 5, top: 14, width: 30, height: 24 },
-  { left: 40, top: 14, width: 25, height: 24 },
-  { left: 5, top: 43, width: 30, height: 20 },
-  { left: 45, top: 43, width: 47, height: 20 },
-  { left: 5, top: 67, width: 90, height: 21 },
+  { left: 25, top: 13, width: 18, height: 25 },
+  { left: 44, top: 13, width: 15, height: 25 },
+  { left: 25, top: 41, width: 20, height: 23 },
+  { left: 46, top: 41, width: 28, height: 23 },
+  { left: 25, top: 66, width: 50, height: 21 },
 ]
 
 const page = css`
@@ -29,13 +29,14 @@ const page = css`
 const packetShelf = css`
   position: absolute;
   z-index: 2;
-  top: clamp(8px, 1.5vh, 20px);
-  left: 50%;
+  top: 50%;
+  left: clamp(8px, 2vw, 28px);
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: clamp(6px, 1.4vw, 18px);
-  transform: translateX(-50%);
+  gap: clamp(4px, 1.2vh, 14px);
+  transform: translateY(-50%);
 `
 
 const packetCard = css`
