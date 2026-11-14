@@ -94,38 +94,65 @@ const option = css`
 `
 
 const resourceOption = css`
-  display: flex;
+  display: grid;
   align-items: center;
-  flex-direction: column;
+  grid-template-columns: 60px auto auto;
+  grid-template-rows: auto auto;
   gap: 8px;
-  width: 180px;
+  width: auto;
   padding: 8px;
 
-  img {
+  > img {
     display: block;
-    width: 110px;
-    height: 110px;
-    object-fit: contain;
-  }
-
-  label {
-    color: #332318;
-    font-weight: 700;
-  }
-
-  input {
     width: 60px;
-    margin-left: 6px;
-    padding: 4px;
-    border: 2px solid #332318;
-    border-radius: 4px;
-    background: #fff3d1;
-    color: #332318;
-    font: inherit;
-    text-align: center;
+    height: 136px;
+    object-fit: contain;
+    grid-column: 1;
+    grid-row: 1;
+    transform: translateY(20px);
   }
 
-  button {
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    grid-column: 2;
+    grid-row: 1;
+    transform: translateY(25px);
+  }
+
+  .quantity-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .quantity-controls button {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .quantity-controls button:hover img,
+  .quantity-controls button:focus-visible img {
+    filter: brightness(1.15);
+  }
+
+  .quantity-controls button:focus-visible {
+    outline: 2px solid #332318;
+    outline-offset: 2px;
+  }
+
+  > button {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    transform: translateX(35px);
     padding: 6px 12px;
     border: 2px solid #332318;
     border-radius: 4px;
@@ -136,8 +163,23 @@ const resourceOption = css`
     font-weight: 700;
   }
 
-  button:hover {
+  > button:hover {
     background: #ad7137;
+  }
+
+  .quantity-controls img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .quantity-value {
+    min-width: 2ch;
+    color: #332318;
+    font: inherit;
+    font-weight: 700;
+    text-align: center;
   }
 `
 
@@ -149,13 +191,7 @@ export default function FarmItemPopup({
   quantitySelector = false,
   }) {
   const popupRef = useRef(null)
-  const [quantity, setQuantity] = useState('1')
-
-  function updateQuantity(value) {
-    if (/^\d*$/.test(value)) {
-      setQuantity(value)
-    }
-  }
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     function handlePointerDown(event) {
@@ -187,19 +223,28 @@ export default function FarmItemPopup({
       {items.map((seed) => quantitySelector ? (
         <div key={seed.id} css={resourceOption}>
           <img src={seed.image} alt={seed.name} />
-          <label>
-            Amount
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(event) => updateQuantity(event.target.value)}
-            />
-          </label>
+          <div className="quantity-controls" aria-label="Amount">
+            <span className="quantity-value" aria-live="polite">{quantity}</span>
+            <div className="quantity-buttons">
+              <button
+                type="button"
+                onClick={() => setQuantity((currentQuantity) => currentQuantity + 1)}
+                aria-label="Add amount"
+              >
+                <img src="/AddButton.webp" alt="" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setQuantity((currentQuantity) => Math.max(1, currentQuantity - 1))}
+                aria-label="Subtract amount"
+              >
+                <img src="/SubtractButton.webp" alt="" />
+              </button>
+            </div>
+          </div>
           <button
             type="button"
-            disabled={!quantity || Number(quantity) < 1}
-            onClick={() => onSelect(seed, Number(quantity))}
+            onClick={() => onSelect(seed, quantity)}
           >
             Use amount
           </button>
