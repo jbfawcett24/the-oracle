@@ -139,6 +139,7 @@ export default function FarmPage({
   }, [])
 
   const isResourceMonth = monthState?.itemsNeeded !== 'seeds'
+  const isFirstMonth = monthState?.monthName === 'January'
   const availableItems = isResourceMonth
     ? resources[monthState?.itemsNeeded] ?? []
     : crops
@@ -179,7 +180,7 @@ export default function FarmPage({
               role="button"
               tabIndex={0}
               onClick={() => {
-                if (crop && !isResourceMonth) return
+                if (crop && !isResourceMonth && !isFirstMonth) return
 
                 setSelectedPlot((currentPlot) => (
                   currentPlot === index ? null : index
@@ -188,12 +189,12 @@ export default function FarmPage({
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault()
-                  if (!crop || isResourceMonth) setSelectedPlot(index)
+                  if (!crop || isResourceMonth || isFirstMonth) setSelectedPlot(index)
                 }
               }}
               aria-label={crop ? `${crop.name} planted` : 'Empty farm plot'}
             >
-              {selectedPlot === index && (!crop || isResourceMonth) && (
+              {selectedPlot === index && (!crop || isResourceMonth || isFirstMonth) && (
                 <FarmItemPopup
                   item={crop}
                   items={availableItems}
