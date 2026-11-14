@@ -4,7 +4,7 @@ import ArrowButton from '../components/ArrowButton'
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.DEV ? 'http://localhost:3001/api' : '/api')
+  (import.meta.env.DEV ? 'http://localhost:8787/api' : '/api')
 const API_URL = `${API_BASE_URL.replace(/\/$/, '')}/oracle`
 
 export default function OraclePage({

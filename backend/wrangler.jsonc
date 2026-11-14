@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "oracle-backend",
+  "main": "index.js",
+  "compatibility_date": "2026-11-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "secrets": {
+    "required": ["LLM_BASE_URL", "LLM_API_KEY", "LLM_MODEL"]
+  }
+}

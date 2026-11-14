@@ -1,8 +1,9 @@
-import "dotenv/config"
+import { env } from "cloudflare:workers"
+import { httpServerHandler } from "cloudflare:node"
 import OpenAi from "openai"
 import express from "express"
 import cors from "cors"
-import { ORACLE_SYSTEM } from "./prompts.js"
+import { NPC_SYSTEM, ORACLE_SYSTEM } from "./prompts.js"
 
 const app = express()
 app.use(cors())
@@ -10,8 +11,8 @@ app.use(express.json())
 
 
 const llm = new OpenAi({
-  baseURL: process.env.LLM_BASE_URL,
-  apiKey: process.env.LLM_API_KEY,
+  baseURL: env.LLM_BASE_URL,
+  apiKey: env.LLM_API_KEY,
 })
 
 const parseJson = (raw) => {
@@ -44,6 +45,33 @@ const parseJson = (raw) => {
   }
 }
 
+const parseNpcJson = (raw) => {
+  if (typeof raw !== "string") throw new Error("Model returned no text")
+
+  const cleaned = raw
+    .replace(/^\s*```(?:json)?\s*/i, "")
+    .replace(/\s*```\s*$/i, "")
+    .trim()
+  const start = cleaned.indexOf("{")
+  const end = cleaned.lastIndexOf("}")
+  if (start < 0 || end < start) throw new Error("Model returned invalid JSON")
+
+  const result = JSON.parse(cleaned.slice(start, end + 1))
+  if (
+    !result ||
+    typeof result.message !== "string" ||
+    !Array.isArray(result.options) ||
+    result.options.length !== 2 ||
+    !result.options.every((option) => typeof option === "string" && option.trim())
+  ) {
+    throw new Error("Model JSON did not match the NPC response shape")
+  }
+  return {
+    message: result.message,
+    options: result.options,
+  }
+}
+
 app.post("/api/oracle", async (req, res) => {
   const {
     message,
@@ -56,7 +84,7 @@ app.post("/api/oracle", async (req, res) => {
 
   try {
     const completion = await llm.chat.completions.create({
-      model: process.env.LLM_MODEL,
+      model: env.LLM_MODEL,
       temperature: 0.9,
       response_format: { type: "json_object" },
       messages: [
@@ -77,4 +105,44 @@ app.post("/api/oracle", async (req, res) => {
   }
 })
 
-app.listen(3001, () => console.log('Oracle listening on :3001'));
+app.post("/api/npc", async (req, res) => {
+  const {
+    npcDescription = "",
+    message = "",
+    history = [],
+  } = req.body
+
+  if (!npcDescription.trim() || !message.trim()) {
+    return res.status(400).json({
+      message: "npcDescription and message are required",
+    })
+  }
+
+  try {
+    const completion = await llm.chat.completions.create({
+      model: env.LLM_MODEL,
+      temperature: 0.9,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content: `${NPC_SYSTEM}\n\nNPC description:\n${npcDescription}`,
+        },
+        ...history.slice(-8),
+        { role: "user", content: message },
+      ],
+    })
+
+    res.json(parseNpcJson(completion.choices[0].message.content))
+  } catch (err) {
+    console.log(`NPC error: ${err.message}`)
+    res.status(502).json({
+      message: "...the NPC falls strangely silent.",
+      options: [],
+    })
+  }
+})
+
+app.listen(3001)
+
+export default httpServerHandler({ port: 3001 })
