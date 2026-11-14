@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import OraclePage from './pages/OraclePage'
 import './App.css'
 import FarmPage from './pages/FarmPage'
+import MenuPage from './pages/MenuPage'
 import Overlay from './Overlay'
 import Village from './pages/village/Village'
 
@@ -10,6 +11,7 @@ function App() {
   const [chatHistory, setChatHistory] = useState([])
   const [playerFacts, setPlayerFacts] = useState([])
   const [planted, setPlanted] = useState({})
+  const [username, setUsername] = useState(null)
   const [resources, setResources] = useState({ water: 0, fertilizer: 0 })
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
   const [gameState, setGameState] = useState([{
@@ -137,6 +139,10 @@ function App() {
     setChatHistory([])
     setResources({ water: 0, fertilizer: 0 })
     setScreen('farm')
+  }
+
+  if (username === null) {
+    return <MenuPage setUsername={setUsername} />
   }
 
 
