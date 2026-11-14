@@ -53,6 +53,7 @@ const plot = (area) => css`
   background: transparent;
   transition: background 150ms ease, border-color 150ms ease;
   pointer-events: auto;
+  cursor: pointer;
 
   &:focus-visible {
     outline: none;
@@ -83,7 +84,7 @@ const plantedTile = css`
   filter: drop-shadow(1px 2px 1px rgba(42, 25, 9, 0.28));
 `
 
-export default function FarmPage({ planted, setPlanted, cropStage = 0 }) {
+export default function FarmPage({ planted, setPlanted, cropStage = 0, monthState }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
@@ -184,40 +185,40 @@ export default function FarmPage({ planted, setPlanted, cropStage = 0 }) {
                   if (!layout?.count) return null
 
                   return (
-                <span
-                  css={plantedCrop(
-                    index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0,
-                    index === 0 ? 20 : index === 1 ? 20 : 0,
-                  )}
-                  title={`${crop.name} planted`}
-                  role="img"
-                  aria-label={`${crop.name} crop planted across the plot`}
-                  style={{
-                    '--crop-tile-width': `${layout.tileWidth}px`,
-                    '--crop-tile-height': `${layout.tileHeight}px`,
-                  }}
-                >
-                  {Array.from({ length: layout.count }, (_, cropIndex) => (
-                    ((index === 4 && cropIndex === layout.count - layout.columns)
-                      || (index === 2 && cropIndex === layout.columns - 1)
-                      || (index === 3 && cropIndex === layout.count - 1)) ? (
-                      <span
-                        key={`empty-plot-${index}-${cropIndex}`}
-                        css={plantedTile}
-                        aria-label="Empty plot space"
-                      />
-                    ) : (
-                      <span
-                        key={`${crop.id}-${cropIndex}`}
-                        css={plantedTile}
-                        style={{
-                          backgroundImage: `url(${crop.sprite})`,
-                          backgroundPosition: cropStagePosition,
-                        }}
-                      />
-                    )
-                  ))}
-                </span>
+                    <span
+                      css={plantedCrop(
+                        index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0,
+                        index === 0 ? 20 : index === 1 ? 20 : 0,
+                      )}
+                      title={`${crop.name} planted`}
+                      role="img"
+                      aria-label={`${crop.name} crop planted across the plot`}
+                      style={{
+                        '--crop-tile-width': `${layout.tileWidth}px`,
+                        '--crop-tile-height': `${layout.tileHeight}px`,
+                      }}
+                    >
+                      {Array.from({ length: layout.count }, (_, cropIndex) => (
+                        ((index === 4 && cropIndex === layout.count - layout.columns)
+                          || (index === 2 && cropIndex === layout.columns - 1)
+                          || (index === 3 && cropIndex === layout.count - 1)) ? (
+                          <span
+                            key={`empty-plot-${index}-${cropIndex}`}
+                            css={plantedTile}
+                            aria-label="Empty plot space"
+                          />
+                        ) : (
+                          <span
+                            key={`${crop.id}-${cropIndex}`}
+                            css={plantedTile}
+                            style={{
+                              backgroundImage: `url(${crop.sprite})`,
+                              backgroundPosition: cropStagePosition,
+                            }}
+                          />
+                        )
+                      ))}
+                    </span>
                   )
                 })()
               )}

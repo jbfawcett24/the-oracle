@@ -5,86 +5,86 @@ import DialogBox from "./DialogBox"
 
 
 
-export default function Villager({ name, currentMonth, gameState }){
-    const [isTalking, setIsTalking] = useState(false)
+export default function Villager({ name, currentMonth, gameState }) {
+  const [isTalking, setIsTalking] = useState(false)
 
-    const talkingTree = gameState?.dialogue?.[currentMonth]?.[name]
+  const talkingTree = gameState?.dialogue?.[currentMonth]?.[name]
 
-    function handleClick(){
-        setIsTalking(true)
-    }
+  function handleClick() {
+    setIsTalking(true)
+  }
 
-    const dialogBox = isTalking && talkingTree ? (
-        <DialogBox
-            key={`${currentMonth}-${name}`}
-            talkingTree={talkingTree}
-            characterName={name}
-            onClose={() => setIsTalking(false)}
-        />
-    ) : null
+  const dialogBox = isTalking && talkingTree ? (
+    <DialogBox
+      key={`${currentMonth}-${name}`}
+      talkingTree={talkingTree}
+      characterName={name}
+      onClose={() => setIsTalking(false)}
+    />
+  ) : null
 
-    switch (name) {
-        case "Jarnathan":
-            return(
-                <div
-                    onClick={handleClick}
-                    css={{
-                        height: "150px",
-                        width: "75px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "40vh",
-                        left: "30vw",
-                        backgroundImage: "url('/Johnathan.webp')",
-                        backgroundSize: "120% auto",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center"
-                    }}>
-                    {dialogBox}
-                </div>
-            )
-    
-        case "Meredeth":
+  switch (name) {
+    case "Jarnathan":
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "175px",
+            width: "75px",
+            position: "absolute",
+            top: "40vh",
+            left: "30vw",
+            backgroundImage: "url('/Johnathan.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
+        </div>
+      )
 
-            return(
-                <div
-                    onClick={handleClick}
-                    css={{
-                        height: "150px",
-                        width: "75px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "75vh",
-                        left: "48vw",
-                        backgroundImage: "url('/Meredith.webp')",
-                        backgroundSize: "120% auto",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center"
-                    }}>
-                    {dialogBox}
-                </div>
-            )
-        case "Herm":
-            return(
-                <div
-                    onClick={handleClick}
-                    css={{
-                        height: "150px",
-                        width: "75px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "40vh",
-                        right: "29vw",
-                        backgroundImage: "url('/Herm.webp')",
-                        backgroundSize: "120% auto",
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center"
-                    }}>
-                    {dialogBox}
+    case "Meredeth":
 
-                </div>
-            )
-        default:
-            break;
-    }
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "150px",
+            width: "75px",
+            position: "absolute",
+            top: "75vh",
+            left: "48vw",
+            backgroundImage: "url('/Meredith.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
+        </div>
+      )
+    case "Herm":
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "150px",
+            width: "75px",
+            position: "absolute",
+            top: "40vh",
+            right: "29vw",
+            backgroundImage: "url('/Herm.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
+
+        </div>
+      )
+    default:
+      break;
+  }
 }
