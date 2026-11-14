@@ -82,7 +82,7 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
                 css={{
                     position: "absolute",
                     right: "1rem",
-                    bottom: "calc(40% + 0.5rem)",
+                    bottom: "calc(100% - 60px)",
                     width: "200px",
                     height: "250px",
                     zIndex: -2,
