@@ -170,6 +170,7 @@ function App() {
               currentMonth={currentMonth.monthName}
               gameState={currentMonth}
               npcDescriptions={npcDescriptions}
+              playerFacts={playerFacts}
             >
 
             </Village>

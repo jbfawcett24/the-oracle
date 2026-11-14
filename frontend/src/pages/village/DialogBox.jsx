@@ -42,6 +42,7 @@ export default function DialogBox({
   characterName,
   isReplaced = false,
   npcDescription = "",
+  playerFacts = [],
   onClose,
 }) {
   const [currentNodeId, setCurrentNodeId] = useState("start")
@@ -61,7 +62,13 @@ export default function DialogBox({
       const response = await fetch(NPC_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ npcDescription, message: playerMessage, history, depth }),
+        body: JSON.stringify({
+          npcDescription,
+          message: playerMessage,
+          history,
+          depth,
+          playerFacts,
+        }),
       })
       const data = await response.json()
 
@@ -82,7 +89,7 @@ export default function DialogBox({
     } finally {
       setIsLoading(false)
     }
-  }, [npcDescription])
+  }, [npcDescription, playerFacts])
 
   useEffect(() => {
     if (!isReplaced) return undefined
