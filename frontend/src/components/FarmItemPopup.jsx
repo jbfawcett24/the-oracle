@@ -147,16 +147,13 @@ export default function FarmItemPopup({
   onSelect,
   onClose,
   quantitySelector = false,
-  maxQuantity = 1,
 }) {
   const popupRef = useRef(null)
   const [quantity, setQuantity] = useState(1)
 
-  const safeMaxQuantity = Math.max(1, maxQuantity)
-
   function updateQuantity(value) {
     const nextQuantity = Number(value) || 1
-    setQuantity(Math.min(safeMaxQuantity, Math.max(1, nextQuantity)))
+    setQuantity(Math.max(1, nextQuantity))
   }
 
   useEffect(() => {
@@ -194,7 +191,6 @@ export default function FarmItemPopup({
             <input
               type="number"
               min="1"
-              max={safeMaxQuantity}
               value={quantity}
               onChange={(event) => updateQuantity(event.target.value)}
             />

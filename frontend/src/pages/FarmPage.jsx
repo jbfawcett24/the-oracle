@@ -94,7 +94,6 @@ export default function FarmPage({
   setPlanted,
   cropStage = 0,
   monthState,
-  resources: resourceCounts,
   setResources,
 }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
@@ -198,13 +197,7 @@ export default function FarmPage({
                 <FarmItemPopup
                   item={crop}
                   items={availableItems}
-                  resourceCounts={resourceCounts}
                   quantitySelector={isResourceMonth}
-                  maxQuantity={Math.max(
-                    1,
-                    Number(monthState?.monthlySolution?.[1])
-                      - (resourceCounts?.[monthState?.itemsNeeded] ?? 0),
-                  )}
                   onSelect={selectItem}
                   onClose={() => setSelectedPlot(null)}
                 />

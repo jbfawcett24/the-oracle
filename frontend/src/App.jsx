@@ -66,7 +66,7 @@ function App() {
   {
     monthName: "March",
     monthlyIssue: "Your plants are dying, they need fertilizer",
-    monthlySolution: ["Use 4 units of water", 4],
+    monthlySolution: ["Use 4 units of fertilizer", 4],
     itemsNeeded: "fertilizer",
     corruption: 0.25,
     cropStage: 2,
@@ -185,7 +185,6 @@ function App() {
             setPlanted={setPlanted}
             cropStage={currentMonth.cropStage}
             monthState={currentMonth}
-            resources={resources}
             setResources={setResources}
           />
         </Overlay>

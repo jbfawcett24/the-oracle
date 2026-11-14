@@ -45,6 +45,7 @@ export default function OraclePage({
           history,
           playerFacts,
           corruption: monthCorruption,
+          currentMonth: currentMonth.monthName
         }),
       })
 
