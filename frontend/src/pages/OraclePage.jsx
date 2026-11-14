@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { css } from '@emotion/react'
 
 const API_URL = 'http://localhost:3001/api/oracle'
 
@@ -9,9 +10,11 @@ export default function OraclePage({
   setPlayerFacts,
   corruption,
   setCorruption,
+  toTown,
+  toFarm
 }) {
   const [message, setMessage] = useState('')
-  const [solution, setSolution] = useState('use 4 units of fertilizer')
+  const [solution] = useState('use 4 units of fertilizer')
   const [isSending, setIsSending] = useState(false)
   const [error, setError] = useState('')
 
@@ -76,6 +79,15 @@ export default function OraclePage({
 
   return (
     <main>
+      <div
+        css={css`
+          display: flex;
+          justify-content: space-around;
+        `}
+      >
+        <button onClick={toFarm}>↑</button>
+        <button onClick={toTown}>↑</button>
+      </div>
       <h1>The Oracle</h1>
 
       <section aria-live="polite">

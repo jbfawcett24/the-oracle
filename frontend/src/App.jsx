@@ -1,34 +1,51 @@
 import { useState } from 'react'
 import OraclePage from './pages/OraclePage'
-import './App.css'
+import Overlay from './Overlay'
 
 function App() {
-  // setScreen will be used when the other screens are added.
-  // eslint-disable-next-line no-unused-vars
   const [screen, setScreen] = useState("oracle") // town, farm, oracle
   const [chatHistory, setChatHistory] = useState([])
   const [playerFacts, setPlayerFacts] = useState([])
   const [corruption, setCorruption] = useState(0)
 
 
+  const toOracle = () => setScreen('oracle')
+  const toFarm = () => setScreen('farm')
+  const toTown = () => setScreen('town')
+
+
   switch (screen) {
     case ("town"):
       return (
-        <>
-          boobs
-        </>
+        <Overlay
+          month="January"
+          screen={screen}
+          toOracle={toOracle}
+          toFarm={toFarm}
+          toTown={toTown}
+        >
+          <>boobs</>
+        </Overlay>
       )
 
     case ("farm"):
       return (
-        <>
-          breasts
-        </>
+        <Overlay
+          month="January"
+          screen={screen}
+          toOracle={toOracle}
+          toFarm={toFarm}
+          toTown={toTown}
+        >
+          <>breasts</>
+        </Overlay>
       )
 
     case ("oracle"):
       return (
         <OraclePage
+          toFarm={toFarm}
+          toTown={toTown}
           history={chatHistory}
           setHistory={setChatHistory}
           playerFacts={playerFacts}
@@ -39,11 +56,7 @@ function App() {
       )
 
     default:
-      return (
-        <>
-          beans
-        </>
-      )
+      return (<>beans</>)
   }
 }
 
