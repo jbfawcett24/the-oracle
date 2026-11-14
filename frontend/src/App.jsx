@@ -2,6 +2,7 @@ import { useState } from 'react'
 import OraclePage from './pages/OraclePage'
 import './App.css'
 import FarmPage from './pages/FarmPage'
+import Overlay from './Overlay'
 
 function App() {
   // setScreen will be used when the other screens are added.
@@ -33,9 +34,15 @@ function App() {
 
     case ("farm"):
       return (
-        <>
+        <Overlay
+          month="January"
+          screen={screen}
+          toOracle={toOracle}
+          toFarm={toFarm}
+          toTown={toTown}
+        >
           <FarmPage />
-        </>
+        </Overlay>
       )
 
     case ("oracle"):
