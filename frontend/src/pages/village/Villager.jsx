@@ -29,13 +29,16 @@ export default function Villager({ name, currentMonth, gameState }){
                 <div
                     onClick={handleClick}
                     css={{
-                        height: "100px",
-                        width: "50px",
+                        height: "150px",
+                        width: "75px",
                         border: "solid black 2px",
                         position: "absolute",
                         top: "40vh",
-                        left: "25vw",
-                        backgroundColor: "red"
+                        left: "30vw",
+                        backgroundImage: "url('/Johnathan.webp')",
+                        backgroundSize: "120% auto",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center"
                     }}>
                     {dialogBox}
                 </div>
@@ -47,13 +50,16 @@ export default function Villager({ name, currentMonth, gameState }){
                 <div
                     onClick={handleClick}
                     css={{
-                        height: "100px",
-                        width: "50px",
+                        height: "150px",
+                        width: "75px",
                         border: "solid black 2px",
                         position: "absolute",
                         top: "75vh",
                         left: "48vw",
-                        backgroundColor: "red"
+                        backgroundImage: "url('/Meredith.webp')",
+                        backgroundSize: "120% auto",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center"
                     }}>
                     {dialogBox}
                 </div>
@@ -63,13 +69,16 @@ export default function Villager({ name, currentMonth, gameState }){
                 <div
                     onClick={handleClick}
                     css={{
-                        height: "100px",
-                        width: "50px",
+                        height: "150px",
+                        width: "75px",
                         border: "solid black 2px",
                         position: "absolute",
                         top: "40vh",
-                        right: "25vw",
-                        backgroundColor: "red"
+                        right: "29vw",
+                        backgroundImage: "url('/Herm.webp')",
+                        backgroundSize: "120% auto",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center"
                     }}>
                     {dialogBox}
 

@@ -4,6 +4,12 @@ import { useState } from "react"
 import { createPortal } from "react-dom"
 import TypewriterText from "../../components/TypewriterText"
 
+const characterImages = {
+    Jarnathan: "/Johnathan.webp",
+    Meredeth: "/Meredith.webp",
+    Herm: "/Herm.webp",
+}
+
 export default function DialogBox({ talkingTree, characterName, onClose }) {
     const [currentNodeId, setCurrentNodeId] = useState("start")
     const currentNode = talkingTree?.[currentNodeId]
@@ -29,9 +35,23 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
                 padding: "1.25rem",
                 border: "4px solid #2b1a12",
                 borderRadius: "8px",
-                backgroundColor: "#f4d49a",
                 color: "#2b1a12",
                 boxShadow: "4px 4px 0 rgba(0, 0, 0, 0.35)",
+                isolation: "isolate",
+                "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    zIndex: -1,
+                    top: "-25px",
+                    right: "-25px",
+                    bottom: "-25px",
+                    left: "-25px",
+                    borderRadius: "8px",
+                    backgroundImage: "url('/DialogueBox.webp')",
+                    backgroundSize: "100% 100%",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                },
             }}
         >
             <div
@@ -39,11 +59,14 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
                 css={{
                     position: "absolute",
                     right: "1rem",
-                    bottom: "calc(100% + 0.5rem)",
-                    width: "96px",
-                    height: "96px",
-                    border: "3px solid #2b1a12",
-                    backgroundColor: "red",
+                    bottom: "calc(40% + 0.5rem)",
+                    width: "200px",
+                    height: "250px",
+                    zIndex: -2,
+                    backgroundImage: `url('${characterImages[characterName]}')`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
                 }}
             />
 
