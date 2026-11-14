@@ -61,7 +61,7 @@ const parseNpcJson = (raw) => {
     !result ||
     typeof result.message !== "string" ||
     !Array.isArray(result.options) ||
-    result.options.length !== 2 ||
+    ![0, 2].includes(result.options.length) ||
     !result.options.every((option) => typeof option === "string" && option.trim())
   ) {
     throw new Error("Model JSON did not match the NPC response shape")
@@ -80,7 +80,7 @@ app.post("/api/oracle", async (req, res) => {
     playerFacts = [],
     corruption = 0,
     currentMonth = "",
-  } = req.body
+  } = req.body ?? {}
 
   try {
     const completion = await llm.chat.completions.create({
@@ -110,7 +110,14 @@ app.post("/api/npc", async (req, res) => {
     npcDescription = "",
     message = "",
     history = [],
-  } = req.body
+    depth = 0,
+  } = req.body ?? {}
+
+  if (!Number.isInteger(depth) || depth < 0) {
+    return res.status(400).json({
+      message: "depth must be a non-negative integer",
+    })
+  }
 
   if (!npcDescription.trim() || !message.trim()) {
     return res.status(400).json({
@@ -126,23 +133,29 @@ app.post("/api/npc", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `${NPC_SYSTEM}\n\nNPC description:\n${npcDescription}`,
+          content: `${NPC_SYSTEM}\n\nNPC description:\n${npcDescription}\n\nConversation depth: ${depth}. This is NPC response number ${depth + 1}. ${depth >= 2 ? "Return an empty options array because potential messages are no longer available after the third NPC response." : "Return exactly two potential player reply options."}`,
         },
         ...history.slice(-8),
         { role: "user", content: message },
       ],
     })
 
-    res.json(parseNpcJson(completion.choices[0].message.content))
+    const npcResponse = parseNpcJson(completion.choices[0].message.content)
+    res.json({
+      ...npcResponse,
+      depth: depth + 1,
+      options: depth >= 2 ? [] : npcResponse.options,
+    })
   } catch (err) {
     console.log(`NPC error: ${err.message}`)
     res.status(502).json({
       message: "...the NPC falls strangely silent.",
       options: [],
+      depth: depth + 1,
     })
   }
 })
 
-app.listen(3001)
+const server = app.listen(3001)
 
-export default httpServerHandler({ port: 3001 })
+export default httpServerHandler(server)
