@@ -1,63 +1,27 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import DialogBox from "./DialogBox"
 
 
 
-export default function Villager({ name, currentMonth }){
-    const [currentNodeId, setCurrentNodeId] = useState("start")
+export default function Villager({ name, currentMonth, gameState }){
     const [isTalking, setIsTalking] = useState(false)
 
-    const currentNode = 
-        dialogue[currentMonth]?.[name]?.[currentNodeId]
-
-    useEffect(() => {
-        setCurrentNodeId("start");
-        setIsTalking(false);
-    }, [currentMonth, name]);
+    const talkingTree = gameState?.dialogue?.[currentMonth]?.[name]
 
     function handleClick(){
-        setCurrentNodeId("start")
         setIsTalking(true)
     }
 
-    function chooseDialogue(choiceID){
-        console.log(choiceID)
-        setCurrentNodeId(choiceID.next)
-    }
-
-    function CreateDialogueBox(){
-        if (!isTalking || !currentNode){
-            return null
-        }
-        return(
-            <>
-                <div>
-                    <p>{currentNode.text}</p>
-
-                    {currentNode.choices.length > 0 ? (
-                    currentNode.choices.map(choice => (
-                        <button
-                        key={choice.id}
-                        onClick={() => chooseDialogue(choice)}
-                        >
-                        {choice.text}
-                        </button>
-                    ))
-                    ) : (
-                    <button onClick={() => setIsTalking(false)}>
-                        End conversation
-                    </button>
-                    )}
-                </div>
-            </>
-
-        )
-    }
-
-    function handleHover() {
-
-    }
+    const dialogBox = isTalking && talkingTree ? (
+        <DialogBox
+            key={`${currentMonth}-${name}`}
+            talkingTree={talkingTree}
+            characterName={name}
+            onClose={() => setIsTalking(false)}
+        />
+    ) : null
 
     switch (name) {
         case "Jarnathan":
@@ -73,7 +37,7 @@ export default function Villager({ name, currentMonth }){
                         left: "25vw",
                         backgroundColor: "red"
                     }}>
-                    <CreateDialogueBox />
+                    {dialogBox}
                 </div>
             )
     
@@ -81,6 +45,7 @@ export default function Villager({ name, currentMonth }){
 
             return(
                 <div
+                    onClick={handleClick}
                     css={{
                         height: "100px",
                         width: "50px",
@@ -90,12 +55,13 @@ export default function Villager({ name, currentMonth }){
                         left: "48vw",
                         backgroundColor: "red"
                     }}>
-                    <CreateDialogueBox />
+                    {dialogBox}
                 </div>
             )
         case "Herm":
             return(
                 <div
+                    onClick={handleClick}
                     css={{
                         height: "100px",
                         width: "50px",
@@ -105,7 +71,7 @@ export default function Villager({ name, currentMonth }){
                         right: "25vw",
                         backgroundColor: "red"
                     }}>
-                    <CreateDialogueBox />
+                    {dialogBox}
 
                 </div>
             )

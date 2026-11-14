@@ -14,7 +14,7 @@ function App() {
   const [corruption, setCorruption] = useState(0)
   const [planted, setPlanted] = useState({})
   const [gameState, setGameState] = useState({
-      monthName: "",
+      monthName: "January",
       monthlyIssue: "",
       monthlySolution: "",
       itemsNeeded: "",
@@ -70,14 +70,17 @@ function App() {
     case ("town"):
       return (
         <Overlay
-          month="January"
+          month={gameState.monthName}
           screen={screen}
           toOracle={toOracle}
           toFarm={toFarm}
           toTown={toTown}
         >
           <>
-            <Village>
+            <Village
+              currentMonth={gameState.monthName}
+              gameState={gameState}
+            >
               
             </Village>
           </>

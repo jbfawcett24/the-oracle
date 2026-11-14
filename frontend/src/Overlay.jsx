@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { css, Global } from '@emotion/react'
 import ArrowButton from './components/ArrowButton'
 
@@ -6,6 +7,26 @@ function titleCase(value) {
 }
 
 export default function Overlay({ toOracle, toTown, toFarm, screen, month, children }) {
+  useEffect(() => {
+    function handleKeyDown(event) {
+      const navigation = {
+        ArrowLeft: screen !== 'farm' ? toFarm : null,
+        ArrowRight: screen !== 'town' ? toTown : null,
+        ArrowDown: toOracle,
+      }
+      const destination = navigation[event.key]
+
+      if (!destination) return
+
+      event.preventDefault()
+      destination()
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [screen, toFarm, toOracle, toTown])
+
   return (
     <>
       <div
