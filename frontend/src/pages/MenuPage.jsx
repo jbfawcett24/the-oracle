@@ -10,6 +10,13 @@ const page = css`
   height: 100vh;
 `
 
+const designStage = css`
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+`
+
 const background = css`
   position: absolute;
   inset: 0;
@@ -21,19 +28,21 @@ const background = css`
 const title = css`
   position: absolute;
   z-index: 1;
-  top: 5vh;
+  top: 5%;
   left: 50%;
-  width: min(70vw, 700px);
+  width: 36.46%;
   height: auto;
   transform: translateX(-50%);
 `
 
 const panel = css`
-  position: relative;
+  position: absolute;
   z-index: 1;
-  width: min(70vw, 350px);
+  top: 60%;
+  left: 50%;
+  width: 18.23%;
   aspect-ratio: 1277 / 894;
-  transform: translateY(10vh);
+  transform: translate(-50%, -50%);
 `
 
 const panelImage = css`
@@ -109,31 +118,33 @@ export default function MenuPage({ setUsername }) {
 
   return (
     <main css={page}>
-      <img css={background} src="/HomePage.webp" alt="" />
-      <img css={title} src="/Title.webp" alt="Game title" />
+      <div css={designStage}>
+        <img css={background} src="/HomePage.webp" alt="" />
+        <img css={title} src="/Title.webp" alt="Game title" />
 
-      <section css={panel} aria-label="Main menu">
-        <img css={panelImage} src="/MenuPanel.webp" alt="" />
-        <button type="button" css={newGameButton} onClick={startGame}>
-          <img css={buttonImage} src="/NewGameButton.webp" alt="New game" />
-        </button>
-        <input
-          css={usernameInput}
-          style={{
-            boxShadow: nameError
-              ? '0 0 14px 4px rgba(220, 35, 35, 0.9)'
-              : '0 0 0 0 rgba(220, 35, 35, 0)',
-          }}
-          type="text"
-          value={nameInput}
-          onChange={(event) => {
-            setNameInput(event.target.value)
-            setNameError(false)
-          }}
-          placeholder="Enter your name"
-          aria-label="Username"
-        />
-      </section>
+        <section css={panel} aria-label="Main menu">
+          <img css={panelImage} src="/MenuPanel.webp" alt="" />
+          <button type="button" css={newGameButton} onClick={startGame}>
+            <img css={buttonImage} src="/NewGameButton.webp" alt="New game" />
+          </button>
+          <input
+            css={usernameInput}
+            style={{
+              boxShadow: nameError
+                ? '0 0 14px 4px rgba(220, 35, 35, 0.9)'
+                : '0 0 0 0 rgba(220, 35, 35, 0)',
+            }}
+            type="text"
+            value={nameInput}
+            onChange={(event) => {
+              setNameInput(event.target.value)
+              setNameError(false)
+            }}
+            placeholder="Enter your name"
+            aria-label="Username"
+          />
+        </section>
+      </div>
     </main>
   )
 }
