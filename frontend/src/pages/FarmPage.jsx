@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { css } from '@emotion/react'
 import FarmItemPopup from '../components/FarmItemPopup'
+import DialogBox from './village/DialogBox'
 
 const crops = [
   { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', sprite: '/CarrotAssets.webp' },
@@ -95,8 +96,10 @@ export default function FarmPage({
   cropStage = 0,
   monthState,
   setResources,
+  isFinalMonth = false,
 }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
+  const [isFinalDialogOpen, setIsFinalDialogOpen] = useState(false)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
 
@@ -139,6 +142,7 @@ export default function FarmPage({
   }, [])
 
   const isResourceMonth = monthState?.itemsNeeded !== 'seeds'
+  const isFirstMonth = monthState?.monthName === 'January'
   const availableItems = isResourceMonth
     ? resources[monthState?.itemsNeeded] ?? []
     : crops
@@ -179,7 +183,12 @@ export default function FarmPage({
               role="button"
               tabIndex={0}
               onClick={() => {
-                if (crop && !isResourceMonth) return
+                if (isFinalMonth) {
+                  setIsFinalDialogOpen(true)
+                  return
+                }
+
+                if (crop && !isResourceMonth && !isFirstMonth) return
 
                 setSelectedPlot((currentPlot) => (
                   currentPlot === index ? null : index
@@ -188,12 +197,17 @@ export default function FarmPage({
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault()
-                  if (!crop || isResourceMonth) setSelectedPlot(index)
+                  if (isFinalMonth) {
+                    setIsFinalDialogOpen(true)
+                    return
+                  }
+
+                  if (!crop || isResourceMonth || isFirstMonth) setSelectedPlot(index)
                 }
               }}
               aria-label={crop ? `${crop.name} planted` : 'Empty farm plot'}
             >
-              {selectedPlot === index && (!crop || isResourceMonth) && (
+              {selectedPlot === index && (!crop || isResourceMonth || isFirstMonth) && (
                 <FarmItemPopup
                   item={crop}
                   items={availableItems}
@@ -251,6 +265,14 @@ export default function FarmPage({
           )
         })}
       </section>
+      {isFinalDialogOpen && (
+        <DialogBox
+          characterName=""
+          staticMessage="The Oracle will take care of this from now on."
+          hideSprite
+          onClose={() => setIsFinalDialogOpen(false)}
+        />
+      )}
     </main>
   )
 }

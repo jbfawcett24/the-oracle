@@ -5,6 +5,6 @@
   "compatibility_date": "2026-11-14",
   "compatibility_flags": ["nodejs_compat"],
   "secrets": {
-    "required": ["LLM_BASE_URL", "LLM_API_KEY", "LLM_MODEL"]
+    "required": ["LLM_BASE_URL", "LLM_API_KEY", "LLM_MODEL", "LLM_FALLBACK_MODELS"]
   }
 }

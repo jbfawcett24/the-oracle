@@ -14,10 +14,17 @@ export default function Overlay({
   month,
   canAdvanceMonth,
   nextMonthProblem,
+  initialProblem,
+  onInitialProblemClose,
   toNextMonth,
   children,
 }) {
-  const [problemPopup, setProblemPopup] = useState(null)
+  const [problemPopup, setProblemPopup] = useState(initialProblem ?? null)
+
+  function closeProblemPopup() {
+    setProblemPopup(null)
+    onInitialProblemClose?.()
+  }
 
   function handleNextMonth() {
     toNextMonth()
@@ -209,7 +216,7 @@ export default function Overlay({
       {problemPopup && (
         <div
           role="presentation"
-          onClick={() => setProblemPopup(null)}
+          onClick={closeProblemPopup}
           css={css`
             position: fixed;
             inset: 0;
@@ -240,7 +247,7 @@ export default function Overlay({
           >
             <button
               type="button"
-              onClick={() => setProblemPopup(null)}
+              onClick={closeProblemPopup}
               aria-label="Close problem"
               css={css`
                 position: absolute;

@@ -18,6 +18,7 @@ function App() {
   const [playerFacts, setPlayerFacts] = useState([])
   const [planted, setPlanted] = useState({})
   const [username, setUsername] = useState(null)
+  const [showInitialProblem, setShowInitialProblem] = useState(false)
   const [resources, setResources] = useState({ water: 0, fertilizer: 0 })
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
   const [gameState, setGameState] = useState([{
@@ -79,11 +80,26 @@ function App() {
     dialogue: dialogue.dialogue,
     replacedNpcs: ["Jarnathan", "Meredeth", "Herm"],
   },
+  {
+    monthName: "July",
+    monthlyIssue: "The Oracle is silent.",
+    monthlySolution: ["", ""],
+    itemsNeeded: "seeds",
+    corruption: 0.75,
+    cropStage: 6,
+    dialogue: {},
+    replacedNpcs: [],
+  },
 
   ])
 
   const currentMonth = gameState[currentMonthIndex] ?? gameState[0]
   const nextMonthProblem = gameState[currentMonthIndex + 1]?.monthlyIssue
+
+  function startGame(name) {
+    setUsername(name)
+    setShowInitialProblem(true)
+  }
 
   const requiredItem = currentMonth?.monthlySolution?.[1]
 
@@ -148,7 +164,7 @@ function App() {
   }
 
   if (username === null) {
-    return <MenuPage setUsername={setUsername} />
+    return <MenuPage setUsername={startGame} />
   }
 
 
@@ -163,6 +179,8 @@ function App() {
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
           nextMonthProblem={nextMonthProblem}
+          initialProblem={showInitialProblem ? currentMonth.monthlyIssue : null}
+          onInitialProblemClose={() => setShowInitialProblem(false)}
           toNextMonth={toNextMonth}
         >
           <>
@@ -172,6 +190,7 @@ function App() {
               npcDescriptions={npcDescriptions}
               playerFacts={playerFacts}
               username={username}
+              isFinalMonth={currentMonth.monthName === 'July'}
             >
 
             </Village>
@@ -189,6 +208,8 @@ function App() {
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
           nextMonthProblem={nextMonthProblem}
+          initialProblem={showInitialProblem ? currentMonth.monthlyIssue : null}
+          onInitialProblemClose={() => setShowInitialProblem(false)}
           toNextMonth={toNextMonth}
         >
           <FarmPage
@@ -197,6 +218,7 @@ function App() {
             cropStage={currentMonth.cropStage}
             monthState={currentMonth}
             setResources={setResources}
+            isFinalMonth={currentMonth.monthName === 'July'}
           />
         </Overlay>
       )

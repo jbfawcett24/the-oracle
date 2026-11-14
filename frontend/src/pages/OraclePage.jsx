@@ -17,6 +17,7 @@ export default function OraclePage({
   toFarm
 }) {
   const [message, setMessage] = useState('')
+  const isFinalMonth = currentMonth?.monthName === 'July'
   const solution = Array.isArray(currentMonth?.monthlySolution)
     ? currentMonth.monthlySolution[0]
     : currentMonth?.monthlySolution || ''
@@ -29,6 +30,12 @@ export default function OraclePage({
 
     const trimmedMessage = message.trim()
     if (!trimmedMessage || isSending) return
+
+    if (isFinalMonth) {
+      setTemporaryOracleMessage('The Oracle is silent...')
+      setMessage('')
+      return
+    }
 
     const monthCorruption = Number(currentMonth?.corruption) || 0
     setIsSending(true)
@@ -108,7 +115,7 @@ export default function OraclePage({
   return (
     <main
       css={css`
-        background: url('/TheOracle.webp') center center / cover no-repeat;
+        background: url('${isFinalMonth ? '/Forest.png' : '/TheOracle.webp'}') center center / cover no-repeat;
         color: #f4f1e8;
         min-height: 100dvh;
         overflow: hidden;

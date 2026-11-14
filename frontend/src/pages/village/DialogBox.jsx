@@ -43,6 +43,8 @@ export default function DialogBox({
   isReplaced = false,
   npcDescription = "",
   playerFacts = [],
+  staticMessage = "",
+  hideSprite = false,
   onClose,
   username
 }) {
@@ -102,7 +104,7 @@ export default function DialogBox({
     return () => window.clearTimeout(request)
   }, [isReplaced, sendNpcMessage])
 
-  if (!isReplaced && !currentNode) {
+  if (!staticMessage && !isReplaced && !currentNode) {
     return null
   }
 
@@ -113,6 +115,8 @@ export default function DialogBox({
   function chooseNpcOption(option) {
     if (!isLoading) sendNpcMessage(option, npcHistory, npcDepth)
   }
+
+  const displayedNpcText = isLoading && !npcMessage ? "..." : npcError || npcMessage
 
   function replaceUsername(text) {
     if (typeof text !== "string") {
@@ -158,7 +162,7 @@ export default function DialogBox({
         },
       }}
     >
-      <div
+      {!hideSprite && <div
         aria-label={`${characterName} sprite`}
         css={{
           position: "absolute",
@@ -172,12 +176,17 @@ export default function DialogBox({
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-      />
+      />}
 
       <h2>{characterName}</h2>
       <p css={{ margin: "0.5rem 0 1rem" }}>
-        {isReplaced ? (
-          isLoading && !npcMessage ? "..." : npcError || npcMessage
+        {staticMessage ? (
+          <TypewriterText key={staticMessage} text={staticMessage} />
+        ) : isReplaced ? (
+          <TypewriterText
+            key={`${npcDepth}-${displayedNpcText}`}
+            text={displayedNpcText}
+          />
         ) : (
           <TypewriterText
             key={`${currentNodeId}-${currentNode.text}`}
@@ -187,7 +196,7 @@ export default function DialogBox({
       </p>
 
       <div css={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-        {(isReplaced ? npcOptions : currentNode.choices)?.length > 0 ? (
+        {!staticMessage && (isReplaced ? npcOptions : currentNode.choices)?.length > 0 ? (
           (isReplaced ? npcOptions : currentNode.choices).map((choice) => (
             <button
               key={isReplaced ? choice : `${choice.next}-${choice.text}`}
