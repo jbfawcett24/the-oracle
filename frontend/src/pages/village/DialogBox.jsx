@@ -44,6 +44,7 @@ export default function DialogBox({
   npcDescription = "",
   playerFacts = [],
   onClose,
+  username
 }) {
   const [currentNodeId, setCurrentNodeId] = useState("start")
   const [npcMessage, setNpcMessage] = useState("")
@@ -113,6 +114,17 @@ export default function DialogBox({
     if (!isLoading) sendNpcMessage(option, npcHistory, npcDepth)
   }
 
+  function replaceUsername(text) {
+    if (typeof text !== "string") {
+      return text;
+    }
+
+    return text.replace(/\{\{username\}\}/g, username ?? "");
+  }
+  const resolvedText = currentNode
+    ? replaceUsername(currentNode.text)
+    : "";
+
   const dialog = (
     <div
       onClick={(event) => event.stopPropagation()}
@@ -169,7 +181,7 @@ export default function DialogBox({
         ) : (
           <TypewriterText
             key={`${currentNodeId}-${currentNode.text}`}
-            text={currentNode.text}
+            text={resolvedText}
           />
         )}
       </p>
@@ -183,7 +195,7 @@ export default function DialogBox({
               disabled={isReplaced && isLoading}
               onClick={() => isReplaced ? chooseNpcOption(choice) : chooseDialogue(choice)}
             >
-              {isReplaced ? choice : choice.text}
+              {isReplaced ? choice : replaceUsername(choice.text)}
             </button>
           ))
         ) : (

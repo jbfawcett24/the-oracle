@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function TypewriterText({ text, speed = 35 }) {
+export default function TypewriterText({ text, speed = 20 }) {
     const [visibleCharacters, setVisibleCharacters] = useState(0)
 
     useEffect(() => {

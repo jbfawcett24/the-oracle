@@ -36,7 +36,7 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.125,
     cropStage: 1,
-    dialogue: {},
+    dialogue: dialogue.dialogue,
     replacedNpcs: [],
   },
   {
@@ -46,7 +46,7 @@ function App() {
     itemsNeeded: "fertilizer",
     corruption: 0.25,
     cropStage: 2,
-    dialogue: {},
+    dialogue: dialogue.dialogue,
     replacedNpcs: [],
   },
   {
@@ -56,7 +56,7 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.375,
     cropStage: 3,
-    dialogue: {},
+    dialogue: dialogue.dialogue,
     replacedNpcs: ["Jarnathan"],
   },
   {
@@ -66,7 +66,7 @@ function App() {
     itemsNeeded: "fertilizer",
     corruption: 0.5,
     cropStage: 4,
-    dialogue: {},
+    dialogue: dialogue.dialogue,
     replacedNpcs: ["Jarnathan", "Meredeth"],
   },
   {
@@ -76,7 +76,7 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.625,
     cropStage: 5,
-    dialogue: {},
+    dialogue: dialogue.dialogue,
     replacedNpcs: ["Jarnathan", "Meredeth", "Herm"],
   },
 
@@ -171,6 +171,7 @@ function App() {
               gameState={currentMonth}
               npcDescriptions={npcDescriptions}
               playerFacts={playerFacts}
+              username={username}
             >
 
             </Village>

@@ -5,7 +5,7 @@ import DialogBox from "./DialogBox"
 
 
 
-export default function Villager({ name, currentMonth, gameState, npcDescriptions, playerFacts }) {
+export default function Villager({ name, currentMonth, gameState, npcDescriptions, playerFacts, username }) {
   const [isTalking, setIsTalking] = useState(false)
 
   const talkingTree = gameState?.dialogue?.[currentMonth]?.[name]
@@ -24,6 +24,7 @@ export default function Villager({ name, currentMonth, gameState, npcDescription
       npcDescription={npcDescriptions?.[name]}
       playerFacts={playerFacts}
       onClose={() => setIsTalking(false)}
+      username={username}
     />
   ) : null
 
