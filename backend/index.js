@@ -45,7 +45,14 @@ const parseJson = (raw) => {
 }
 
 app.post("/api/oracle", async (req, res) => {
-  const { message, solution = "", history = [], playerFacts = [], corruption = 0 } = req.body
+  const {
+    message,
+    solution = "",
+    history = [],
+    playerFacts = [],
+    corruption = 0,
+    currentMonth = "",
+  } = req.body
 
   try {
     const completion = await llm.chat.completions.create({
@@ -55,7 +62,7 @@ app.post("/api/oracle", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `${ORACLE_SYSTEM}\n\nKnown facts about the player: ${JSON.stringify(playerFacts)}\nCorruption level (0-1): ${corruption}\nHidden intended solution (confidential): ${JSON.stringify(solution)}`,
+          content: `${ORACLE_SYSTEM}\n\nKnown facts about the player: ${JSON.stringify(playerFacts)}\nCurrent in-game month (the harvest season runs from January through July): ${JSON.stringify(currentMonth)}\nCorruption level (0-1): ${corruption}\nHidden intended solution (confidential): ${JSON.stringify(solution)}`,
         },
         ...history.slice(-8),
         { role: 'user', content: message }

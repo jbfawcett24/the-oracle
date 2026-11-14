@@ -8,6 +8,11 @@ const crops = [
   { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', sprite: '/WheatAssets.webp' },
 ]
 
+const resources = {
+  water: [{ id: 'water', name: 'Water', image: '/Water.webp' }],
+  fertilizer: [{ id: 'fertilizer', name: 'Fertilizer', image: '/Fertilizer.webp' }],
+}
+
 // Percentage positions match the five tilled fields in the widened Farm.webp.
 const plotAreas = [
   { left: 25, top: 13, width: 18, height: 25 },
@@ -84,7 +89,13 @@ const plantedTile = css`
   filter: drop-shadow(1px 2px 1px rgba(42, 25, 9, 0.28));
 `
 
-export default function FarmPage({ planted, setPlanted, cropStage = 0, monthState }) {
+export default function FarmPage({
+  planted,
+  setPlanted,
+  cropStage = 0,
+  monthState,
+  setResources,
+}) {
   const [selectedPlot, setSelectedPlot] = useState(null)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
@@ -127,16 +138,29 @@ export default function FarmPage({ planted, setPlanted, cropStage = 0, monthStat
     }
   }, [])
 
-  function plantCrop(crop) {
+  const isResourceMonth = monthState?.itemsNeeded !== 'seeds'
+  const availableItems = isResourceMonth
+    ? resources[monthState?.itemsNeeded] ?? []
+    : crops
+
+  function selectItem(item, amount = 1) {
     if (selectedPlot === null) return
 
-    setPlanted(() => Object.fromEntries(
-      plotAreas.map((_, index) => [index, crop]),
-    ))
+    if (isResourceMonth) {
+      setResources((currentResources) => ({
+        ...currentResources,
+        [item.id]: (currentResources[item.id] ?? 0) + amount,
+      }))
+    } else {
+      setPlanted(() => Object.fromEntries(
+        plotAreas.map((_, index) => [index, item]),
+      ))
+    }
     setSelectedPlot(null)
   }
 
-  const normalizedCropStage = Math.max(0, Math.min(7, Number(cropStage) || 0))
+  const activeCropStage = monthState?.cropStage ?? cropStage
+  const normalizedCropStage = Math.max(0, Math.min(7, Number(activeCropStage) || 0))
   const cropStagePosition = `${(normalizedCropStage % 4) * (100 / 3)}% ${Math.floor(normalizedCropStage / 4) * 100}%`
 
   return (
@@ -155,7 +179,7 @@ export default function FarmPage({ planted, setPlanted, cropStage = 0, monthStat
               role="button"
               tabIndex={0}
               onClick={() => {
-                if (crop) return
+                if (crop && !isResourceMonth) return
 
                 setSelectedPlot((currentPlot) => (
                   currentPlot === index ? null : index
@@ -164,16 +188,17 @@ export default function FarmPage({ planted, setPlanted, cropStage = 0, monthStat
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault()
-                  if (!crop) setSelectedPlot(index)
+                  if (!crop || isResourceMonth) setSelectedPlot(index)
                 }
               }}
               aria-label={crop ? `${crop.name} planted` : 'Empty farm plot'}
             >
-              {selectedPlot === index && !crop && (
+              {selectedPlot === index && (!crop || isResourceMonth) && (
                 <FarmItemPopup
                   item={crop}
-                  items={crops}
-                  onSelect={plantCrop}
+                  items={availableItems}
+                  quantitySelector={isResourceMonth}
+                  onSelect={selectItem}
                   onClose={() => setSelectedPlot(null)}
                 />
               )}

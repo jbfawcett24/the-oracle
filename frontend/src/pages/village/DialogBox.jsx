@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { css, Global } from "@emotion/react"
 import { useState } from "react"
 import { createPortal } from "react-dom"
 import TypewriterText from "../../components/TypewriterText"
@@ -54,6 +55,7 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
         width: "min(760px, calc(100vw - 2rem))",
         transform: "translateX(-50%)",
         padding: "1.25rem",
+        fontFamily: "'Geist Pixel', sans-serif",
         border: "4px solid #2b1a12",
         borderRadius: "8px",
         color: "white",
@@ -80,7 +82,7 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
         css={{
           position: "absolute",
           right: "1rem",
-          bottom: "calc(40% + 0.5rem)",
+          bottom: "calc(100% - 60px)",
           width: "200px",
           height: "250px",
           zIndex: -2,
@@ -119,5 +121,14 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
     </div>
   )
 
-  return createPortal(dialog, document.body)
+  return (
+    <>
+      <Global
+        styles={css`
+                    @import url('https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap');
+                `}
+      />
+      {createPortal(dialog, document.body)}
+    </>
+  )
 }

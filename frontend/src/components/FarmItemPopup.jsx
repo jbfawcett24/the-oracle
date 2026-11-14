@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const popup = css`
   position: fixed;
@@ -93,8 +93,68 @@ const option = css`
   }
 `
 
-export default function FarmItemPopup({ item, items, onSelect, onClose }) {
+const resourceOption = css`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  width: 180px;
+  padding: 8px;
+
+  img {
+    display: block;
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+  }
+
+  label {
+    color: #332318;
+    font-weight: 700;
+  }
+
+  input {
+    width: 60px;
+    margin-left: 6px;
+    padding: 4px;
+    border: 2px solid #332318;
+    border-radius: 4px;
+    background: #fff3d1;
+    color: #332318;
+    font: inherit;
+    text-align: center;
+  }
+
+  button {
+    padding: 6px 12px;
+    border: 2px solid #332318;
+    border-radius: 4px;
+    background: #c58a4a;
+    color: #fff3d1;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  button:hover {
+    background: #ad7137;
+  }
+`
+
+export default function FarmItemPopup({
+  item,
+  items,
+  onSelect,
+  onClose,
+  quantitySelector = false,
+}) {
   const popupRef = useRef(null)
+  const [quantity, setQuantity] = useState(1)
+
+  function updateQuantity(value) {
+    const nextQuantity = Number(value) || 1
+    setQuantity(Math.max(1, nextQuantity))
+  }
 
   useEffect(() => {
     function handlePointerDown(event) {
@@ -123,7 +183,26 @@ export default function FarmItemPopup({ item, items, onSelect, onClose }) {
         <img src="../../public/ButtonClose.webp" alt="" />
       </button>
 
-      {items.map((seed) => (
+      {items.map((seed) => quantitySelector ? (
+        <div key={seed.id} css={resourceOption}>
+          <img src={seed.image} alt={seed.name} />
+          <label>
+            Amount
+            <input
+              type="number"
+              min="1"
+              value={quantity}
+              onChange={(event) => updateQuantity(event.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={() => onSelect(seed, quantity)}
+          >
+            Use amount
+          </button>
+        </div>
+      ) : (
         <button
           key={seed.id}
           type="button"
@@ -132,7 +211,10 @@ export default function FarmItemPopup({ item, items, onSelect, onClose }) {
           aria-label={`Plant ${seed.name}`}
           aria-pressed={item?.id === seed.id}
         >
-          <img src={seed.packet} alt={`${seed.name} seed packet`} />
+          <img
+            src={seed.packet ?? seed.image}
+            alt={seed.packet ? `${seed.name} seed packet` : seed.name}
+          />
         </button>
       ))}
     </div>
