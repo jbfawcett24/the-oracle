@@ -44,6 +44,10 @@ export default function ArrowButton({ onClick, direction = 'up', text }) {
           background: transparent;
         }
 
+        &:hover > img {
+          filter: brightness(1.12);
+        }
+
         &:hover > .arrow-button__label {
           opacity: 1;
           transform: translate(-50%, 0);
@@ -95,6 +99,7 @@ export default function ArrowButton({ onClick, direction = 'up', text }) {
           pointer-events: none;
           position: absolute;
           top: 0;
+          transition: filter 150ms ease;
           width: 100%;
           z-index: 0;
         `}

@@ -12,6 +12,7 @@ function App() {
   const [chatHistory, setChatHistory] = useState([])
   const [playerFacts, setPlayerFacts] = useState([])
   const [corruption, setCorruption] = useState(0)
+  const [planted, setPlanted] = useState({})
 
 
   const toOracle = () => setScreen('oracle')
@@ -46,7 +47,9 @@ function App() {
           toFarm={toFarm}
           toTown={toTown}
         >
-          <FarmPage />
+          <FarmPage
+            planted={planted}
+            setPlanted={setPlanted} />
         </Overlay>
       )
 
