@@ -23,12 +23,12 @@ const villageImage = css`
     object-fit: fill;
 `
 
-export default function Village({ currentMonth, gameState, npcDescriptions, playerFacts }) {
+export default function Village({ currentMonth, gameState, npcDescriptions, playerFacts, isFinalMonth }) {
     return(
         <main css={page}>
             <section css={villageFrame}>
                 <img css={villageImage} src="/Village.webp" alt="Pixel-art village" />
-                <Villager 
+                {!isFinalMonth && <Villager 
                     name={"Jarnathan"}
                     currentMonth={currentMonth}
                     gameState={gameState}
@@ -36,8 +36,8 @@ export default function Village({ currentMonth, gameState, npcDescriptions, play
                     playerFacts={playerFacts}
                 >
 
-                </Villager>
-                <Villager 
+                </Villager>}
+                {!isFinalMonth && <Villager 
                     name={"Meredeth"}
                     currentMonth={currentMonth}
                     gameState={gameState}
@@ -45,8 +45,8 @@ export default function Village({ currentMonth, gameState, npcDescriptions, play
                     playerFacts={playerFacts}
                     >
 
-                </Villager>
-                <Villager 
+                </Villager>}
+                {!isFinalMonth && <Villager 
                     name={"Herm"}
                     currentMonth={currentMonth}
                     gameState={gameState}
@@ -54,7 +54,7 @@ export default function Village({ currentMonth, gameState, npcDescriptions, play
                     playerFacts={playerFacts}
                     >
 
-                </Villager>
+                </Villager>}
             </section>
         </main>
     )

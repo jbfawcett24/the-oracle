@@ -80,6 +80,16 @@ function App() {
     dialogue: {},
     replacedNpcs: ["Jarnathan", "Meredeth", "Herm"],
   },
+  {
+    monthName: "July",
+    monthlyIssue: "The Oracle is silent.",
+    monthlySolution: ["", ""],
+    itemsNeeded: "seeds",
+    corruption: 0.75,
+    cropStage: 6,
+    dialogue: {},
+    replacedNpcs: [],
+  },
 
   ])
 
@@ -179,6 +189,7 @@ function App() {
               gameState={currentMonth}
               npcDescriptions={npcDescriptions}
               playerFacts={playerFacts}
+              isFinalMonth={currentMonth.monthName === 'July'}
             >
 
             </Village>
@@ -206,6 +217,7 @@ function App() {
             cropStage={currentMonth.cropStage}
             monthState={currentMonth}
             setResources={setResources}
+            isFinalMonth={currentMonth.monthName === 'July'}
           />
         </Overlay>
       )

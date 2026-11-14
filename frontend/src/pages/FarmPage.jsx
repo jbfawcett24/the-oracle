@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { css } from '@emotion/react'
 import FarmItemPopup from '../components/FarmItemPopup'
+import DialogBox from './village/DialogBox'
 
 const crops = [
   { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', sprite: '/CarrotAssets.webp' },
@@ -95,8 +96,10 @@ export default function FarmPage({
   cropStage = 0,
   monthState,
   setResources,
+  isFinalMonth = false,
 }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
+  const [isFinalDialogOpen, setIsFinalDialogOpen] = useState(false)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
 
@@ -180,6 +183,11 @@ export default function FarmPage({
               role="button"
               tabIndex={0}
               onClick={() => {
+                if (isFinalMonth) {
+                  setIsFinalDialogOpen(true)
+                  return
+                }
+
                 if (crop && !isResourceMonth && !isFirstMonth) return
 
                 setSelectedPlot((currentPlot) => (
@@ -189,6 +197,11 @@ export default function FarmPage({
               onKeyDown={(event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                   event.preventDefault()
+                  if (isFinalMonth) {
+                    setIsFinalDialogOpen(true)
+                    return
+                  }
+
                   if (!crop || isResourceMonth || isFirstMonth) setSelectedPlot(index)
                 }
               }}
@@ -252,6 +265,14 @@ export default function FarmPage({
           )
         })}
       </section>
+      {isFinalDialogOpen && (
+        <DialogBox
+          characterName=""
+          staticMessage="The Oracle will take care of this from now on."
+          hideSprite
+          onClose={() => setIsFinalDialogOpen(false)}
+        />
+      )}
     </main>
   )
 }
