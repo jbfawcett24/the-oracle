@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { css } from '@emotion/react'
 
 const crops = [
@@ -100,25 +100,73 @@ const plot = (area, isDragTarget, hasCrop) => css`
   ${hasCrop ? 'background: rgba(71, 38, 19, 0.12);' : ''}
 `
 
-const plantedCrop = css`
+const plantedCrop = (horizontalOffset, verticalOffset) => css`
   position: absolute;
-  inset: 5% 7%;
-  display: grid;
-  place-items: center;
+  inset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
   pointer-events: none;
 
-  img {
-    width: min(42%, 96px);
-    height: min(62%, 110px);
-    object-fit: contain;
-    filter: drop-shadow(2px 4px 2px rgba(42, 25, 9, 0.32));
-  }
+  ${horizontalOffset ? `margin-left: ${horizontalOffset}px; width: calc(100% - ${horizontalOffset}px);` : ''}
+  ${verticalOffset ? `margin-top: ${verticalOffset}px; height: calc(100% - ${verticalOffset}px);` : ''}
+`
+
+const plantedTile = css`
+  display: block;
+  width: var(--crop-tile-width);
+  height: var(--crop-tile-height);
+  flex: 0 0 var(--crop-tile-width);
+  object-fit: contain;
+  filter: drop-shadow(1px 2px 1px rgba(42, 25, 9, 0.28));
 `
 
 export default function FarmPage() {
   const [draggedCrop, setDraggedCrop] = useState(null)
   const [planted, setPlanted] = useState({})
   const [activePlot, setActivePlot] = useState(null)
+  const [plotLayouts, setPlotLayouts] = useState([])
+  const plotRefs = useRef([])
+
+  useEffect(() => {
+    function updatePlotLayouts() {
+      const baseTileWidth = Math.min(44.85, Math.max(23.92, window.innerWidth * 0.0299))
+      const bottomField = plotRefs.current[4]
+      const bottomRowTileWidth = bottomField && bottomField.clientHeight > 0
+        ? (bottomField.clientHeight * 190) / (4 * 207)
+        : baseTileWidth
+      const tileWidth = Math.min(baseTileWidth, bottomRowTileWidth)
+      const tileHeight = tileWidth * (207 / 190)
+
+      setPlotLayouts(plotRefs.current.map((plotElement, index) => {
+        if (!plotElement) return { count: 0, columns: 0, tileWidth, tileHeight }
+
+        const horizontalOffset = index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0
+        const verticalOffset = index === 0 ? 20 : index === 1 ? 20 : 0
+        const availableWidth = plotElement.clientWidth - horizontalOffset
+        const availableHeight = plotElement.clientHeight - verticalOffset
+        const columns = Math.floor(availableWidth / tileWidth)
+        const rows = Math.floor(availableHeight / tileHeight)
+        const rowsToRender = index === 4 ? 4 : rows
+
+        return { count: columns * rowsToRender, columns, tileWidth, tileHeight }
+      }))
+    }
+
+    updatePlotLayouts()
+    window.addEventListener('resize', updatePlotLayouts)
+    const observer = new ResizeObserver(updatePlotLayouts)
+    plotRefs.current.forEach((plotElement) => {
+      if (plotElement) observer.observe(plotElement)
+    })
+
+    return () => {
+      window.removeEventListener('resize', updatePlotLayouts)
+      observer.disconnect()
+    }
+  }, [])
 
   function startDragging(event, crop) {
     setDraggedCrop(crop)
@@ -167,6 +215,9 @@ export default function FarmPage() {
           return (
             <div
               key={index}
+              ref={(plotElement) => {
+                plotRefs.current[index] = plotElement
+              }}
               css={plot(area, activePlot === index && Boolean(draggedCrop), Boolean(crop))}
               onDragEnter={(event) => {
                 event.preventDefault()
@@ -181,9 +232,46 @@ export default function FarmPage() {
               aria-label={crop ? `${crop.name} planted` : 'Empty farm plot'}
             >
               {crop && (
-                <span css={plantedCrop} title={`${crop.name} planted`}>
-                  <img src={crop.image} alt={`${crop.name} crop`} />
+                (() => {
+                  const layout = plotLayouts[index]
+
+                  if (!layout?.count) return null
+
+                  return (
+                <span
+                  css={plantedCrop(
+                    index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0,
+                    index === 0 ? 20 : index === 1 ? 20 : 0,
+                  )}
+                  title={`${crop.name} planted`}
+                  role="img"
+                  aria-label={`${crop.name} crop planted across the plot`}
+                  style={{
+                    '--crop-tile-width': `${layout.tileWidth}px`,
+                    '--crop-tile-height': `${layout.tileHeight}px`,
+                  }}
+                >
+                  {Array.from({ length: layout.count }, (_, cropIndex) => (
+                    ((index === 4 && cropIndex === layout.count - layout.columns)
+                      || (index === 2 && cropIndex === layout.columns - 1)
+                      || (index === 3 && cropIndex === layout.count - 1)) ? (
+                      <span
+                        key={`empty-plot-${index}-${cropIndex}`}
+                        css={plantedTile}
+                        aria-label="Empty plot space"
+                      />
+                    ) : (
+                      <img
+                        key={`${crop.id}-${cropIndex}`}
+                        css={plantedTile}
+                        src={crop.image}
+                        alt=""
+                      />
+                    )
+                  ))}
                 </span>
+                  )
+                })()
               )}
             </div>
           )
