@@ -11,7 +11,7 @@
               "next": "townName"
             },
             {
-              "text": "Hello Jarnathan! My name is {{playerName}}",
+              "text": "Hello Jarnathan! My name is {{username}}",
               "next": "userName"
             },
             {
@@ -102,7 +102,7 @@
           "text": "Why hello, young stranger. Who might you be? My name is Meredeth.",
           "choices": [
             {
-              "text": "Hello! My name is {{name of user}}. Tell me about yourself",
+              "text": "Hello! My name is {{username}}. Tell me about yourself",
               "next": "userName"
             }, 
             {
@@ -179,7 +179,7 @@
           "text": "Ho there! I haven't seen you in town before. My name's Herm! What's your name?",
           "choices": [
             {
-              "text": "Hello! My name is {{name of user}}. Tell me about yourself",
+              "text": "Hello! My name is {{username}}. Tell me about yourself",
               "next": "userName"
             }
           ]
@@ -259,6 +259,289 @@
         "end": {
           "id": "end",
           "text": "See you later, {{username}}!"
+        }
+      }
+    },
+    "February": {
+      "Jarnathan": {
+        "start": {
+          "id": "start",
+          "text": "Oh, hello again, {{username}}! Your crops are sprouting, aren't they? Or did you plant a garden of flowers? No, no, definitely crops. Probably. The Oracle would know, of course. It knows the difference between a sprout and a weed, and between a weed and a particularly ambitious flower. Have you asked it yet?",
+          "choices": [
+            {
+              "text": "I have spoken with the Oracle a little.",
+              "next": "askedOracle"
+            },
+            {
+              "text": "Can you tell me how my crops are doing?",
+              "next": "askAboutCrops"
+            },
+            {
+              "text": "What's happening in town this month?",
+              "next": "townNews"
+            }
+          ]
+        },
+        "askedOracle": {
+          "id": "askedOracle",
+          "text": "Ah, good, good! Then you know all about the sprouts already. Unless you asked it something else, in which case you know about that instead. The Oracle is very helpful that way. I asked it whether I should move my desk closer to the window, and it said something about sunlight, so I moved it into the hallway. The hallway is very bright at noon.",
+          "choices": [
+            {
+              "text": "What else is happening in town?.",
+              "next": "townNews"
+            },
+            {
+              "text": "What did the Oracle say about my crops?",
+              "next": "oracleCrops"
+            }
+          ]
+        },
+        "askAboutCrops": {
+          "id": "askAboutCrops",
+          "text": "Your crops look healthy! I think. They are green, which is usually a promising color for crops, though it can also be a promising color for moss. Or paint. We had a green bench once, but the Oracle said it was probably blue in poor lighting. Anyway, you should ask the Oracle about watering them!",
+          "choices": [
+            {
+              "text": "How often should I water them?",
+              "next": "watering"
+            },
+            {
+              "text": "I'll ask the Oracle.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleCrops": {
+          "id": "oracleCrops",
+          "text": "Well, I haven't asked it specifically about your crops. I asked it whether crops enjoy being talked to, and it gave me a very long answer about communication and root systems. So, yes? Probably? You might want to ask it yourself. It may give you a different answer, but answers are like that sometimes.",
+          "choices": [
+            {
+              "text": "I'll ask the Oracle myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "watering": {
+          "id": "watering",
+          "text": "Watering is important, yes. The Oracle told me that too. Though it also told me not to water the floor, which I thought was obvious, but then I remembered the hallway incident. You should water the soil, not the floor. Unless the floor is soil. Is your floor soil?",
+          "choices": [
+            {
+              "text": "I'll keep that in mind.",
+              "next": "end"
+            }
+          ]
+        },
+        "townNews": {
+          "id": "townNews",
+          "text": "Town news! Well, the east fence is leaning, the west fence is somehow standing straighter, and Herm says the Oracle told him that both fences are perfectly fine. Meredeth has been sorting buttons again. I think one of them is mine, but she says buttons don't belong to people. I should ask the Oracle if that's alright.",
+          "choices": [
+            {
+              "text": "That sounds like a lot to deal with.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Well, best of luck with your little sprouts, {{username}}! If anything goes wrong, ask the Oracle why. If nothing goes wrong, ask the Oracle anyway. It may be able to make things even better!",
+          "choices": []
+        }
+      },
+      "Meredeth": {
+        "start": {
+          "id": "start",
+          "text": "Hello again, {{username}}. I saw you walking toward your farm this morning. Your boots were muddy, and you left a little trail across the road. I swept it up after you. Then I had to sweep the porch. After that, I cleaned off the broom. It had gathered quite a bit of dust.",
+          "choices": [
+            {
+              "text": "My crops have started sprouting.",
+              "next": "cropsSprouting"
+            },
+            {
+              "text": "Have you spoken with the Oracle lately?",
+              "next": "oracle"
+            },
+            {
+              "text": "I'm sorry about the mud.",
+              "next": "mud"
+            }
+          ]
+        },
+        "cropsSprouting": {
+          "id": "cropsSprouting",
+          "text": "Yes, I noticed. The first leaves are very small, but that is generally how leaves begin. Carr used to check the crops every morning, though he always checked them from the same side of the field. I told him the crops did not grow differently on the north side, but he insisted they looked more productive from there.",
+          "choices": [
+            {
+              "text": "Do you have any advice for taking care of them?",
+              "next": "farmAdvice"
+            },
+            {
+              "text": "The Oracle has given me some advice already.",
+              "next": "oracleAdvice"
+            }
+          ]
+        },
+        "farmAdvice": {
+          "id": "farmAdvice",
+          "text": "I suppose you should try and keep the weeds out. The Oracle can already identify weeds faster than most people. Soon it will probably water the fields, pull the weeds, harvest the crops, repair the fences, and perhaps sweep the porch. It would need many hands to do all of that, though.",
+          "choices": [
+            {
+              "text": "Do you think the Oracle will replace farmers?",
+              "next": "replaceFarmers"
+            },
+            {
+              "text": "I'll take care of the farm myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracleAdvice": {
+          "id": "oracleAdvice",
+          "text": "That is sensible. The Oracle has been learning about agriculture for some time now. It can tell you when to water, when to plant, and when something is diseased. It cannot pull the weeds yet, but I am sure that is only a temporary limitation. Everything seems temporary where the Oracle is concerned.",
+          "choices": [
+            {
+              "text": "That sounds a little worrying.",
+              "next": "replaceFarmers"
+            },
+            {
+              "text": "I still want to farm myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "replaceFarmers": {
+          "id": "replaceFarmers",
+          "text": "It is not worrying. It is simply the way things are going. The Oracle replaced the old bookkeeper, then the messenger, then most of the people who used to maintain the town records. Now the records are very accurate, although no one knows where they are kept. Farming will likely be next. Perhaps it will grow something more efficiently than you.",
+          "choices": [
+            {
+              "text": "I think my crops still need me.",
+              "next": "end"
+            }
+          ]
+        },
+        "mud": {
+          "id": "mud",
+          "text": "It is quite all right. Mud is a natural part of farming, though it is less natural on my clean floor. I remember when the roads were mud year-round. We had to wipe our feet every time we went from one room to another. Sometimes we wiped them three times. It did not help much.",
+          "choices": [
+            {
+              "text": "I'll be more careful next time.",
+              "next": "end"
+            }
+          ]
+        },
+        "oracle": {
+          "id": "oracle",
+          "text": "Of course. The Oracle has been busy answering questions about the weather, the wells, and whether the bakery should continue making round loaves. It said the loaves were structurally sound. I do not know what that means, but that seemed pleasing.",
+          "choices": [
+            {
+              "text": "Did you ask it about my farm?",
+              "next": "oracleAdvice"
+            },
+            {
+              "text": "I'll ask it myself.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Well, I should get back to the garden. The Oracle says the tomatoes need attention, though it did not specify what kind. I suppose I will begin by looking at them.",
+          "choices": []
+        }
+      },
+      "Herm": {
+        "start": {
+          "id": "start",
+          "text": "Hey, {{username}}! Your crops are sprouting! I saw them this morning! Well, I saw the tops of them, anyway. They were tiny and green and absolutely incredible! I told the Oracle immediately, and he said this was an expected stage of plant development, but I know he was excited too!",
+          "choices": [
+            {
+              "text": "You talked to the Oracle about my crops?",
+              "next": "talkedToOracle"
+            },
+            {
+              "text": "Have you ever grown anything yourself?",
+              "next": "growing"
+            },
+            {
+              "text": "What else did the Oracle say?",
+              "next": "oracleAdvice"
+            }
+          ]
+        },
+        "talkedToOracle": {
+          "id": "talkedToOracle",
+          "text": "Of course I did! Why wouldn't I talk to him. I talk to him at all hours. Sometimes in the morning, sometimes at night, and once in the middle of the night because I woke up with a question about whether clouds have favorite shapes. The Oracle said he does not have favorites, but then he described three clouds in great detail, so I think he does.",
+          "choices": [
+            {
+              "text": "What did you ask about my crops?",
+              "next": "oracleAdvice"
+            },
+            {
+              "text": "That is a lot of questions.",
+              "next": "questions"
+            }
+          ]
+        },
+        "oracleAdvice": {
+          "id": "oracleAdvice",
+          "text": "It said you should watch the sprouts carefully! Not constantly, probably, because that would be difficult, but often enough to notice changes. He mentioned water, light, soil, and something called a root system. I wrote all of that down, but then I asked him about my lunch and used the same page.",
+          "choices": [
+            {
+              "text": "Did you learn anything useful?",
+              "next": "useful"
+            },
+            {
+              "text": "I'll go check on the crops.",
+              "next": "end"
+            }
+          ]
+        },
+        "growing": {
+          "id": "growing",
+          "text": "Not really! I tried once, but I got distracted talking to the Oracle and forgot where I planted everything. Then I found a plant growing behind the shop, but it turned out to be a very determined weed. It was still impressive, though. I named it Gerald.",
+          "choices": [
+            {
+              "text": "What happened to Gerald?",
+              "next": "gerald"
+            },
+            {
+              "text": "I think I'll stick to my crops.",
+              "next": "end"
+            }
+          ]
+        },
+        "questions": {
+          "id": "questions",
+          "text": "Questions are important! The Oracle says they help people understand things. I ask so many that sometimes the Oracle asks me to wait for a moment, which is strange because he never seems to get tired. Maybe he's just thinking deeply. I should ask him!",
+          "choices": [
+            {
+              "text": "I'm sure it doesn't mind.",
+              "next": "end"
+            }
+          ]
+        },
+        "useful": {
+          "id": "useful",
+          "text": "Definitely! I learned that sprouts are not the same as fully grown plants, which is obvious now that I think about it. I also learned that you should not pull them out to see how big the roots are. I did that once. The Oracle said to not do that. He was very patient with me.",
+          "choices": [
+            {
+              "text": "I'll try not to pull them out.",
+              "next": "end"
+            }
+          ]
+        },
+        "gerald": {
+          "id": "gerald",
+          "text": "The Oracle said Gerald was not a suitable crop, so I moved him to the edge of the woods. He seemed happy there. Or at least he did not complain. Plants are difficult to read, but the Oracle is probably working on that.",
+          "choices": [
+            {
+              "text": "I'm glad Gerald is doing well.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Anyway, congratulations on the sprouts! I am very excited to see what they become. I am going to tell the Oracle again, just in case he forgot. He probably didn't, but you can never be too careful!",
+          "choices": []
         }
       }
     }
