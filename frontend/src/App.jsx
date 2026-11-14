@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import OraclePage from './pages/OraclePage'
 import './App.css'
 import FarmPage from './pages/FarmPage'
@@ -6,19 +6,17 @@ import Overlay from './Overlay'
 import Village from './pages/village/Village'
 
 function App() {
-  // setScreen will be used when the other screens are added.
-  // eslint-disable-next-line no-unused-vars
   const [screen, setScreen] = useState("farm") // town, farm, oracle
   const [chatHistory, setChatHistory] = useState([])
   const [playerFacts, setPlayerFacts] = useState([])
-  const [corruption, setCorruption] = useState(0)
   const [planted, setPlanted] = useState({})
-  const cropStage = 0
-  const [gameState, setGameState] = useState({
+  const [resources, setResources] = useState({ water: 0, fertilizer: 0 })
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
+  const [gameState, setGameState] = useState([{
     monthName: "January",
-    monthlyIssue: "",
-    monthlySolution: "",
-    itemsNeeded: "",
+    monthlyIssue: "You need to choose what to plant.",
+    monthlySolution: ["Plant potatoes", "potatoes"],
+    itemsNeeded: "seeds",
     corruption: "",
     dialogue: {
       January: {
@@ -51,14 +49,72 @@ function App() {
         }
       }
     }
+  },
+  {
+    monthName: "February",
+    monthlyIssue: "The plants need water!",
+    monthlySolution: ["Use 5 units of water", 5],
+    itemsNeeded: "water",
+    corruption: 0.125,
+    cropStage: 1,
+    dialogue: {
+
+    }
+  },
+  {
+    monthName: "March",
+    monthlyIssue: "Your plants are dying, they need fertilizer",
+    monthlySolution: ["Use 4 units of water", 4],
+    itemsNeeded: "fertilizer",
+    corruption: 0.25,
+    cropStage: 2,
+    dialogue: {
+
+    }
+  },
+
+  ])
+
+  const currentMonth = gameState[currentMonthIndex] ?? gameState[0]
+
+  const requiredItem = currentMonth?.monthlySolution?.[1]
+
+  function normalizeItemName(value) {
+    const normalizedName = String(value ?? '').toLowerCase().trim()
+    const aliases = {
+      potatoes: 'potato',
+    }
+
+    return aliases[normalizedName] ?? normalizedName.replace(/s$/, '')
   }
-  )
+
+  const plantedCrops = Object.values(planted).filter(Boolean)
+  const isCropRequirementComplete = typeof requiredItem === 'string'
+    && plantedCrops.some((crop) => (
+      normalizeItemName(crop.id) === normalizeItemName(requiredItem)
+      || normalizeItemName(crop.name) === normalizeItemName(requiredItem)
+    ))
+  const isResourceRequirementComplete = typeof requiredItem === 'number'
+    && (resources[currentMonth.itemsNeeded] ?? 0) >= requiredItem
+  const isMonthComplete = isCropRequirementComplete || isResourceRequirementComplete
+
+  useEffect(() => {
+    console.log('[month completion]', {
+      month: currentMonth?.monthName,
+      requiredItem,
+      plantedCropIds: plantedCrops.map((crop) => crop.id),
+      resources,
+      isMonthComplete,
+      canAdvanceMonth: isMonthComplete && currentMonthIndex < gameState.length - 1,
+    })
+  }, [currentMonth, currentMonthIndex, gameState.length, isMonthComplete, planted, plantedCrops, requiredItem, resources])
 
   function updateGameState(key, value) {
-    setGameState(previousState => ({
-      ...previousState,
-      [key]: value,
-    }))
+    setGameState(previousState => previousState.map((monthState, index) => (
+      index === currentMonthIndex
+        ? { ...monthState, [key]: value }
+        : monthState
+    )))
   }
 
 
@@ -66,21 +122,40 @@ function App() {
   const toFarm = () => setScreen('farm')
   const toTown = () => setScreen('town')
 
+  function toNextMonth() {
+    if (!isMonthComplete || currentMonthIndex >= gameState.length - 1) {
+      console.log('[month completion] next month blocked', {
+        isMonthComplete,
+        currentMonthIndex,
+        monthCount: gameState.length,
+      })
+      return
+    }
+
+    console.log('[month completion] advancing month', currentMonthIndex + 1)
+    setCurrentMonthIndex((monthIndex) => monthIndex + 1)
+    setChatHistory([])
+    setResources({ water: 0, fertilizer: 0 })
+    setScreen('farm')
+  }
+
 
   switch (screen) {
     case ("town"):
       return (
         <Overlay
-          month={gameState.monthName}
+          month={currentMonth.monthName}
           screen={screen}
           toOracle={toOracle}
           toFarm={toFarm}
           toTown={toTown}
+          canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
+          toNextMonth={toNextMonth}
         >
           <>
             <Village
-              currentMonth={gameState.monthName}
-              gameState={gameState}
+              currentMonth={currentMonth.monthName}
+              gameState={currentMonth}
             >
 
             </Village>
@@ -91,17 +166,21 @@ function App() {
     case ("farm"):
       return (
         <Overlay
-          month="January"
+          month={currentMonth.monthName}
           screen={screen}
           toOracle={toOracle}
           toFarm={toFarm}
           toTown={toTown}
+          canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
+          toNextMonth={toNextMonth}
         >
           <FarmPage
             planted={planted}
             setPlanted={setPlanted}
-            cropStage={cropStage}
-            monthState={gameState}
+            cropStage={currentMonth.cropStage}
+            monthState={currentMonth}
+            resources={resources}
+            setResources={setResources}
           />
         </Overlay>
       )
@@ -115,8 +194,10 @@ function App() {
           setHistory={setChatHistory}
           playerFacts={playerFacts}
           setPlayerFacts={setPlayerFacts}
-          corruption={corruption}
-          setCorruption={setCorruption}
+          currentMonth={currentMonth}
+          currentMonthIndex={currentMonthIndex}
+          setCurrentMonthIndex={setCurrentMonthIndex}
+          updateGameState={updateGameState}
         />
       )
 

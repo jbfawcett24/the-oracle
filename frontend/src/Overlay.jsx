@@ -6,7 +6,16 @@ function titleCase(value) {
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
 }
 
-export default function Overlay({ toOracle, toTown, toFarm, screen, month, children }) {
+export default function Overlay({
+  toOracle,
+  toTown,
+  toFarm,
+  screen,
+  month,
+  canAdvanceMonth,
+  toNextMonth,
+  children,
+}) {
   useEffect(() => {
     function handleKeyDown(event) {
       const navigation = {
@@ -151,6 +160,41 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
           >
             <ArrowButton direction="down" text="oracle" onClick={toOracle} />
           </div>
+
+          {canAdvanceMonth && (
+            <button
+              type="button"
+              onClick={toNextMonth}
+              css={css`
+                bottom: 1rem;
+                right: 1rem;
+                background: #f4d49a;
+                border: 3px solid #5a3018;
+                border-radius: 6px;
+                box-shadow: 3px 3px 0 rgba(42, 25, 9, 0.45);
+                color: #5a3018;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 1rem;
+                font-weight: 700;
+                padding: 0.75rem 1rem;
+                pointer-events: auto;
+                position: fixed;
+                z-index: 100;
+
+                &:hover {
+                  background: #ffe2a4;
+                }
+
+                &:active {
+                  box-shadow: 1px 1px 0 rgba(42, 25, 9, 0.45);
+                  transform: translate(2px, 2px);
+                }
+              `}
+            >
+              Next month
+            </button>
+          )}
         </nav>
       </div>
 

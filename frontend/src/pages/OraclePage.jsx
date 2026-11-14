@@ -12,13 +12,14 @@ export default function OraclePage({
   setHistory,
   playerFacts,
   setPlayerFacts,
-  corruption,
-  setCorruption,
+  currentMonth,
   toTown,
   toFarm
 }) {
   const [message, setMessage] = useState('')
-  const [solution] = useState('use 4 units of fertilizer')
+  const solution = Array.isArray(currentMonth?.monthlySolution)
+    ? currentMonth.monthlySolution[0]
+    : currentMonth?.monthlySolution || ''
   const [isSending, setIsSending] = useState(false)
   const [error, setError] = useState('')
   const [temporaryOracleMessage, setTemporaryOracleMessage] = useState(null)
@@ -29,7 +30,7 @@ export default function OraclePage({
     const trimmedMessage = message.trim()
     if (!trimmedMessage || isSending) return
 
-    const nextCorruption = Math.min(1, corruption + 0.1)
+    const monthCorruption = Number(currentMonth?.corruption) || 0
     setIsSending(true)
     setError('')
     setTemporaryOracleMessage(null)
@@ -43,7 +44,7 @@ export default function OraclePage({
           solution,
           history,
           playerFacts,
-          corruption: nextCorruption,
+          corruption: monthCorruption,
         }),
       })
 
@@ -73,7 +74,6 @@ export default function OraclePage({
         { role: 'assistant', content: oracleMessage },
       ]
 
-      setCorruption(Math.min(1, data.corruption ?? nextCorruption))
       setHistory(nextHistory)
 
       if (Array.isArray(data.extractedFacts)) {
