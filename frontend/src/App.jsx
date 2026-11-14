@@ -18,6 +18,7 @@ function App() {
   const [playerFacts, setPlayerFacts] = useState([])
   const [planted, setPlanted] = useState({})
   const [username, setUsername] = useState(null)
+  const [showInitialProblem, setShowInitialProblem] = useState(false)
   const [resources, setResources] = useState({ water: 0, fertilizer: 0 })
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0)
   const [gameState, setGameState] = useState([{
@@ -85,6 +86,11 @@ function App() {
   const currentMonth = gameState[currentMonthIndex] ?? gameState[0]
   const nextMonthProblem = gameState[currentMonthIndex + 1]?.monthlyIssue
 
+  function startGame(name) {
+    setUsername(name)
+    setShowInitialProblem(true)
+  }
+
   const requiredItem = currentMonth?.monthlySolution?.[1]
 
   function normalizeItemName(value) {
@@ -148,7 +154,7 @@ function App() {
   }
 
   if (username === null) {
-    return <MenuPage setUsername={setUsername} />
+    return <MenuPage setUsername={startGame} />
   }
 
 
@@ -163,6 +169,8 @@ function App() {
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
           nextMonthProblem={nextMonthProblem}
+          initialProblem={showInitialProblem ? currentMonth.monthlyIssue : null}
+          onInitialProblemClose={() => setShowInitialProblem(false)}
           toNextMonth={toNextMonth}
         >
           <>
@@ -188,6 +196,8 @@ function App() {
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
           nextMonthProblem={nextMonthProblem}
+          initialProblem={showInitialProblem ? currentMonth.monthlyIssue : null}
+          onInitialProblemClose={() => setShowInitialProblem(false)}
           toNextMonth={toNextMonth}
         >
           <FarmPage
