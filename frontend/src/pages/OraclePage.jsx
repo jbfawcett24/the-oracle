@@ -162,10 +162,30 @@ export default function OraclePage({
       >
         {latestOracleMessage && (
           <p
+            key={latestOracleMessage}
             css={css`
+              animation: oracle-solidify 1.8s ease-out both;
               font-size: clamp(1.1rem, 2.5vw, 1.7rem);
               line-height: 1.45;
               text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85);
+
+              @keyframes oracle-solidify {
+                from {
+                  filter: blur(0.8rem);
+                  opacity: 0;
+                  transform: translateY(0.75rem) scale(1.04);
+                }
+
+                to {
+                  filter: blur(0);
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              @media (prefers-reduced-motion: reduce) {
+                animation: none;
+              }
             `}
           >
             {latestOracleMessage}

@@ -1,115 +1,90 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import DialogBox from "./DialogBox"
 
 
 
-export default function Villager({ name, currentMonth }){
-    const [currentNodeId, setCurrentNodeId] = useState("start")
-    const [isTalking, setIsTalking] = useState(false)
+export default function Villager({ name, currentMonth, gameState }) {
+  const [isTalking, setIsTalking] = useState(false)
 
-    const currentNode = 
-        dialogue[currentMonth]?.[name]?.[currentNodeId]
+  const talkingTree = gameState?.dialogue?.[currentMonth]?.[name]
 
-    useEffect(() => {
-        setCurrentNodeId("start");
-        setIsTalking(false);
-    }, [currentMonth, name]);
+  function handleClick() {
+    setIsTalking(true)
+  }
 
-    function handleClick(){
-        setCurrentNodeId("start")
-        setIsTalking(true)
-    }
+  const dialogBox = isTalking && talkingTree ? (
+    <DialogBox
+      key={`${currentMonth}-${name}`}
+      talkingTree={talkingTree}
+      characterName={name}
+      onClose={() => setIsTalking(false)}
+    />
+  ) : null
 
-    function chooseDialogue(choiceID){
-        console.log(choiceID)
-        setCurrentNodeId(choiceID.next)
-    }
+  switch (name) {
+    case "Jarnathan":
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "175px",
+            width: "75px",
+            position: "absolute",
+            top: "40vh",
+            left: "30vw",
+            backgroundImage: "url('/Johnathan.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
+        </div>
+      )
 
-    function CreateDialogueBox(){
-        if (!isTalking || !currentNode){
-            return null
-        }
-        return(
-            <>
-                <div>
-                    <p>{currentNode.text}</p>
+    case "Meredeth":
 
-                    {currentNode.choices.length > 0 ? (
-                    currentNode.choices.map(choice => (
-                        <button
-                        key={choice.id}
-                        onClick={() => chooseDialogue(choice)}
-                        >
-                        {choice.text}
-                        </button>
-                    ))
-                    ) : (
-                    <button onClick={() => setIsTalking(false)}>
-                        End conversation
-                    </button>
-                    )}
-                </div>
-            </>
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "150px",
+            width: "75px",
+            position: "absolute",
+            top: "75vh",
+            left: "48vw",
+            backgroundImage: "url('/Meredith.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
+        </div>
+      )
+    case "Herm":
+      return (
+        <div
+          onClick={handleClick}
+          css={{
+            cursor: "pointer",
+            height: "150px",
+            width: "75px",
+            position: "absolute",
+            top: "40vh",
+            right: "29vw",
+            backgroundImage: "url('/Herm.webp')",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}>
+          {dialogBox}
 
-        )
-    }
-
-    function handleHover() {
-
-    }
-
-    switch (name) {
-        case "Jarnathan":
-            return(
-                <div
-                    onClick={handleClick}
-                    css={{
-                        height: "100px",
-                        width: "50px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "40vh",
-                        left: "25vw",
-                        backgroundColor: "red"
-                    }}>
-                    <CreateDialogueBox />
-                </div>
-            )
-    
-        case "Meredeth":
-
-            return(
-                <div
-                    css={{
-                        height: "100px",
-                        width: "50px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "75vh",
-                        left: "48vw",
-                        backgroundColor: "red"
-                    }}>
-                    <CreateDialogueBox />
-                </div>
-            )
-        case "Herm":
-            return(
-                <div
-                    css={{
-                        height: "100px",
-                        width: "50px",
-                        border: "solid black 2px",
-                        position: "absolute",
-                        top: "40vh",
-                        right: "25vw",
-                        backgroundColor: "red"
-                    }}>
-                    <CreateDialogueBox />
-
-                </div>
-            )
-        default:
-            break;
-    }
+        </div>
+      )
+    default:
+      break;
+  }
 }

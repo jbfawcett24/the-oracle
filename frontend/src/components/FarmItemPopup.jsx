@@ -18,6 +18,7 @@ const popup = css`
   box-shadow: 0 5px 12px rgba(42, 25, 9, 0.4);
   transform: translate(-50%, -50%);
   pointer-events: auto;
+  cursor: default;
 `
 
 const closeButton = css`

@@ -3,9 +3,9 @@ import { css } from '@emotion/react'
 import FarmItemPopup from '../components/FarmItemPopup'
 
 const crops = [
-  { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', image: '/Carrot.webp' },
-  { id: 'potato', name: 'Potato', packet: '/Potato_Packet.webp', image: '/Potatoes.webp' },
-  { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', image: '/Wheat.webp' },
+  { id: 'carrot', name: 'Carrot', packet: '/Carrot_Packet.webp', sprite: '/CarrotAssets.webp' },
+  { id: 'potato', name: 'Potato', packet: '/Potato_Packet.webp', sprite: '/PotatoAssets.webp' },
+  { id: 'wheat', name: 'Wheat', packet: '/Wheat_Packet.webp', sprite: '/WheatAssets.webp' },
 ]
 
 // Percentage positions match the five tilled fields in the widened Farm.webp.
@@ -53,6 +53,7 @@ const plot = (area) => css`
   background: transparent;
   transition: background 150ms ease, border-color 150ms ease;
   pointer-events: auto;
+  cursor: pointer;
 
   &:focus-visible {
     outline: none;
@@ -78,11 +79,12 @@ const plantedTile = css`
   width: var(--crop-tile-width);
   height: var(--crop-tile-height);
   flex: 0 0 var(--crop-tile-width);
-  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: 400% 200%;
   filter: drop-shadow(1px 2px 1px rgba(42, 25, 9, 0.28));
 `
 
-export default function FarmPage({ planted, setPlanted }) {
+export default function FarmPage({ planted, setPlanted, cropStage = 0, monthState }) {
   const [selectedPlot, setSelectedPlot] = useState(null)
   const [plotLayouts, setPlotLayouts] = useState([])
   const plotRefs = useRef([])
@@ -134,6 +136,9 @@ export default function FarmPage({ planted, setPlanted }) {
     setSelectedPlot(null)
   }
 
+  const normalizedCropStage = Math.max(0, Math.min(7, Number(cropStage) || 0))
+  const cropStagePosition = `${(normalizedCropStage % 4) * (100 / 3)}% ${Math.floor(normalizedCropStage / 4) * 100}%`
+
   return (
     <main css={page}>
       <section aria-label="Farm plots" css={farmFrame}>
@@ -180,38 +185,40 @@ export default function FarmPage({ planted, setPlanted }) {
                   if (!layout?.count) return null
 
                   return (
-                <span
-                  css={plantedCrop(
-                    index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0,
-                    index === 0 ? 20 : index === 1 ? 20 : 0,
-                  )}
-                  title={`${crop.name} planted`}
-                  role="img"
-                  aria-label={`${crop.name} crop planted across the plot`}
-                  style={{
-                    '--crop-tile-width': `${layout.tileWidth}px`,
-                    '--crop-tile-height': `${layout.tileHeight}px`,
-                  }}
-                >
-                  {Array.from({ length: layout.count }, (_, cropIndex) => (
-                    ((index === 4 && cropIndex === layout.count - layout.columns)
-                      || (index === 2 && cropIndex === layout.columns - 1)
-                      || (index === 3 && cropIndex === layout.count - 1)) ? (
-                      <span
-                        key={`empty-plot-${index}-${cropIndex}`}
-                        css={plantedTile}
-                        aria-label="Empty plot space"
-                      />
-                    ) : (
-                      <img
-                        key={`${crop.id}-${cropIndex}`}
-                        css={plantedTile}
-                        src={crop.image}
-                        alt=""
-                      />
-                    )
-                  ))}
-                </span>
+                    <span
+                      css={plantedCrop(
+                        index === 4 ? 4 : index === 2 ? 5 : index === 3 ? 20 : index === 1 ? 4 : index === 0 ? 15 : 0,
+                        index === 0 ? 20 : index === 1 ? 20 : 0,
+                      )}
+                      title={`${crop.name} planted`}
+                      role="img"
+                      aria-label={`${crop.name} crop planted across the plot`}
+                      style={{
+                        '--crop-tile-width': `${layout.tileWidth}px`,
+                        '--crop-tile-height': `${layout.tileHeight}px`,
+                      }}
+                    >
+                      {Array.from({ length: layout.count }, (_, cropIndex) => (
+                        ((index === 4 && cropIndex === layout.count - layout.columns)
+                          || (index === 2 && cropIndex === layout.columns - 1)
+                          || (index === 3 && cropIndex === layout.count - 1)) ? (
+                          <span
+                            key={`empty-plot-${index}-${cropIndex}`}
+                            css={plantedTile}
+                            aria-label="Empty plot space"
+                          />
+                        ) : (
+                          <span
+                            key={`${crop.id}-${cropIndex}`}
+                            css={plantedTile}
+                            style={{
+                              backgroundImage: `url(${crop.sprite})`,
+                              backgroundPosition: cropStagePosition,
+                            }}
+                          />
+                        )
+                      ))}
+                    </span>
                   )
                 })()
               )}
