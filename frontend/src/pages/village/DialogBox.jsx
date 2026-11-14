@@ -1,9 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, Global } from "@emotion/react"
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import TypewriterText from "../../components/TypewriterText"
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? "http://localhost:8787/api" : "/api")
+const NPC_API_URL = `${API_BASE_URL.replace(/\/$/, "")}/npc`
 
 const characterImages = {
   Jarnathan: "/Johnathan.webp",
@@ -32,16 +37,80 @@ const dialogButton = {
   },
 }
 
-export default function DialogBox({ talkingTree, characterName, onClose }) {
+export default function DialogBox({
+  talkingTree,
+  characterName,
+  isReplaced = false,
+  npcDescription = "",
+  playerFacts = [],
+  onClose,
+}) {
   const [currentNodeId, setCurrentNodeId] = useState("start")
+  const [npcMessage, setNpcMessage] = useState("")
+  const [npcOptions, setNpcOptions] = useState([])
+  const [npcHistory, setNpcHistory] = useState([])
+  const [npcDepth, setNpcDepth] = useState(0)
+  const [isLoading, setIsLoading] = useState(isReplaced)
+  const [npcError, setNpcError] = useState("")
   const currentNode = talkingTree?.[currentNodeId]
 
-  if (!currentNode) {
+  const sendNpcMessage = useCallback(async (playerMessage, history, depth) => {
+    setIsLoading(true)
+    setNpcError("")
+
+    try {
+      const response = await fetch(NPC_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          npcDescription,
+          message: playerMessage,
+          history,
+          depth,
+          playerFacts,
+        }),
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || `Request failed with status ${response.status}`)
+      }
+
+      setNpcMessage(data.message || "")
+      setNpcOptions(Array.isArray(data.options) ? data.options : [])
+      setNpcDepth(Number.isInteger(data.depth) ? data.depth : depth + 1)
+      setNpcHistory([
+        ...history,
+        { role: "user", content: playerMessage },
+        { role: "assistant", content: data.message || "" },
+      ])
+    } catch (error) {
+      setNpcError(error.message || "Unable to reach the NPC.")
+    } finally {
+      setIsLoading(false)
+    }
+  }, [npcDescription, playerFacts])
+
+  useEffect(() => {
+    if (!isReplaced) return undefined
+
+    const request = window.setTimeout(() => {
+      sendNpcMessage("The player approaches you and greets you.", [], 0)
+    }, 0)
+
+    return () => window.clearTimeout(request)
+  }, [isReplaced, sendNpcMessage])
+
+  if (!isReplaced && !currentNode) {
     return null
   }
 
   function chooseDialogue(choice) {
     setCurrentNodeId(choice.next)
+  }
+
+  function chooseNpcOption(option) {
+    if (!isLoading) sendNpcMessage(option, npcHistory, npcDepth)
   }
 
   const dialog = (
@@ -95,21 +164,26 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
 
       <h2>{characterName}</h2>
       <p css={{ margin: "0.5rem 0 1rem" }}>
-        <TypewriterText
-          key={`${currentNodeId}-${currentNode.text}`}
-          text={currentNode.text}
-        />
+        {isReplaced ? (
+          isLoading && !npcMessage ? "..." : npcError || npcMessage
+        ) : (
+          <TypewriterText
+            key={`${currentNodeId}-${currentNode.text}`}
+            text={currentNode.text}
+          />
+        )}
       </p>
 
       <div css={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-        {currentNode.choices?.length > 0 ? (
-          currentNode.choices.map((choice) => (
+        {(isReplaced ? npcOptions : currentNode.choices)?.length > 0 ? (
+          (isReplaced ? npcOptions : currentNode.choices).map((choice) => (
             <button
-              key={`${choice.next}-${choice.text}`}
+              key={isReplaced ? choice : `${choice.next}-${choice.text}`}
               css={dialogButton}
-              onClick={() => chooseDialogue(choice)}
+              disabled={isReplaced && isLoading}
+              onClick={() => isReplaced ? chooseNpcOption(choice) : chooseDialogue(choice)}
             >
-              {choice.text}
+              {isReplaced ? choice : choice.text}
             </button>
           ))
         ) : (

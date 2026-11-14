@@ -6,6 +6,12 @@ import MenuPage from './pages/MenuPage'
 import Overlay from './Overlay'
 import Village from './pages/village/Village'
 import dialogue from '../dialogue.json'
+
+const npcDescriptions = {
+  Jarnathan: 'The mayor of the town. He relies on the Oracle for nearly everything, often forgets to think for himself, and tends to wander in his speaking, jumping from topic to topic.',
+  Meredeth: "The oldest villager in town. She believes that the Oracle will soon be capable of doing the farmer's job, tends the gardens in her retirement, speaks in a calm, sedate manner, and tends to ramble.",
+  Herm: 'A young writer who is relatively new to town, just five years into town. When he arrived, he had no relationships, so the Oracle is essentially his closest friend. He is very excitable when he talks.',
+}
 function App() {
   const [screen, setScreen] = useState("farm") // town, farm, oracle
   const [chatHistory, setChatHistory] = useState([])
@@ -20,7 +26,8 @@ function App() {
     monthlySolution: ["Plant potatoes", "potatoes"],
     itemsNeeded: "seeds",
     corruption: "",
-    dialogue: dialogue.dialogue
+    dialogue: dialogue.dialogue,
+    replacedNpcs: [],
   },
   {
     monthName: "February",
@@ -29,9 +36,8 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.125,
     cropStage: 1,
-    dialogue: {
-
-    }
+    dialogue: {},
+    replacedNpcs: [],
   },
   {
     monthName: "March",
@@ -40,9 +46,8 @@ function App() {
     itemsNeeded: "fertilizer",
     corruption: 0.25,
     cropStage: 2,
-    dialogue: {
-
-    }
+    dialogue: {},
+    replacedNpcs: [],
   },
   {
     monthName: "April",
@@ -51,9 +56,8 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.375,
     cropStage: 3,
-    dialogue: {
-
-    }
+    dialogue: {},
+    replacedNpcs: ["Jarnathan"],
   },
   {
     monthName: "May",
@@ -62,9 +66,8 @@ function App() {
     itemsNeeded: "fertilizer",
     corruption: 0.5,
     cropStage: 4,
-    dialogue: {
-
-    }
+    dialogue: {},
+    replacedNpcs: ["Jarnathan", "Meredeth"],
   },
   {
     monthName: "June",
@@ -73,9 +76,8 @@ function App() {
     itemsNeeded: "water",
     corruption: 0.625,
     cropStage: 5,
-    dialogue: {
-
-    }
+    dialogue: {},
+    replacedNpcs: ["Jarnathan", "Meredeth", "Herm"],
   },
 
   ])
@@ -167,6 +169,8 @@ function App() {
             <Village
               currentMonth={currentMonth.monthName}
               gameState={currentMonth}
+              npcDescriptions={npcDescriptions}
+              playerFacts={playerFacts}
             >
 
             </Village>

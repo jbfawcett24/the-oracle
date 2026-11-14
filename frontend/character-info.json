@@ -1,6 +1,12 @@
 {
 "Herm"": "Young writer who is relatively new to town, just 5 years into town. When he arrived, he had no relationships, so the Oracle is essentially his closest friend. He is very excitable when he talks",
 "Meredeth"": "The oldest villager in town, she believes that the Oracle will soon be capable of doing the farmer's job. She tends the gardens of the town in her retirement. She speaks in a calm, sedate manner, and tends to ramble",
-"Jarnathan"": "The mayor of the town. He relies on the on the Oracle for nearly everything, and often forgets to think for himself. He tends to wander in his speaking, jumping from topic to topic."
+"Jarnathan": `
+  The mayor of the town. He relies on the on the Oracle for nearly everything, and often forgets to think for himself. He tends to wander in his speaking, jumping from topic to topic.
+
+  examples on how he speaks:
+  Oh hello! You must be new around here. My name's Jarnathan, and I'm the mayor of this small village. Have you been to see the Oracle yet? It's one of the best things about our town! I use the Oracle for positively everything!
+  Oh, uhm. I'm not sure actually! I think I forgot. I'm sure you could ask the Oracle though!
+  `
 }
 

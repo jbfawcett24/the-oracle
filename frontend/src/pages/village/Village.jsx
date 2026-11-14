@@ -23,7 +23,7 @@ const villageImage = css`
     object-fit: fill;
 `
 
-export default function Village({ currentMonth, gameState }) {
+export default function Village({ currentMonth, gameState, npcDescriptions, playerFacts }) {
     return(
         <main css={page}>
             <section css={villageFrame}>
@@ -32,6 +32,8 @@ export default function Village({ currentMonth, gameState }) {
                     name={"Jarnathan"}
                     currentMonth={currentMonth}
                     gameState={gameState}
+                    npcDescriptions={npcDescriptions}
+                    playerFacts={playerFacts}
                 >
 
                 </Villager>
@@ -39,6 +41,8 @@ export default function Village({ currentMonth, gameState }) {
                     name={"Meredeth"}
                     currentMonth={currentMonth}
                     gameState={gameState}
+                    npcDescriptions={npcDescriptions}
+                    playerFacts={playerFacts}
                     >
 
                 </Villager>
@@ -46,6 +50,8 @@ export default function Village({ currentMonth, gameState }) {
                     name={"Herm"}
                     currentMonth={currentMonth}
                     gameState={gameState}
+                    npcDescriptions={npcDescriptions}
+                    playerFacts={playerFacts}
                     >
 
                 </Villager>

@@ -110,6 +110,7 @@ app.post("/api/npc", async (req, res) => {
     npcDescription = "",
     message = "",
     history = [],
+    playerFacts = [],
     depth = 0,
   } = req.body ?? {}
 
@@ -133,7 +134,7 @@ app.post("/api/npc", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: `${NPC_SYSTEM}\n\nNPC description:\n${npcDescription}\n\nConversation depth: ${depth}. This is NPC response number ${depth + 1}. ${depth >= 2 ? "Return an empty options array because potential messages are no longer available after the third NPC response." : "Return exactly two potential player reply options."}`,
+          content: `${NPC_SYSTEM}\n\nNPC description:\n${npcDescription}\n\nKnown facts about the player:\n${JSON.stringify(playerFacts)}\n\nConversation depth: ${depth}. This is NPC response number ${depth + 1}. ${depth >= 2 ? "Return an empty options array because potential messages are no longer available after the third NPC response." : "Return exactly two potential player reply options."}`,
         },
         ...history.slice(-8),
         { role: "user", content: message },
