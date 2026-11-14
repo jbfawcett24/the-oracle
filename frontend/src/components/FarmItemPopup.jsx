@@ -147,13 +147,14 @@ export default function FarmItemPopup({
   onSelect,
   onClose,
   quantitySelector = false,
-}) {
+  }) {
   const popupRef = useRef(null)
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState('1')
 
   function updateQuantity(value) {
-    const nextQuantity = Number(value) || 1
-    setQuantity(Math.max(1, nextQuantity))
+    if (/^\d*$/.test(value)) {
+      setQuantity(value)
+    }
   }
 
   useEffect(() => {
@@ -197,7 +198,8 @@ export default function FarmItemPopup({
           </label>
           <button
             type="button"
-            onClick={() => onSelect(seed, quantity)}
+            disabled={!quantity || Number(quantity) < 1}
+            onClick={() => onSelect(seed, Number(quantity))}
           >
             Use amount
           </button>
