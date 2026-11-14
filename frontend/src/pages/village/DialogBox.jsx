@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { createPortal } from "react-dom"
+import TypewriterText from "../../components/TypewriterText"
 
 export default function DialogBox({ talkingTree, characterName, onClose }) {
     const [currentNodeId, setCurrentNodeId] = useState("start")
@@ -47,7 +48,12 @@ export default function DialogBox({ talkingTree, characterName, onClose }) {
             />
 
             <strong>{characterName}</strong>
-            <p css={{ margin: "0.5rem 0 1rem" }}>{currentNode.text}</p>
+            <p css={{ margin: "0.5rem 0 1rem" }}>
+                <TypewriterText
+                    key={`${currentNodeId}-${currentNode.text}`}
+                    text={currentNode.text}
+                />
+            </p>
 
             <div css={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
                 {currentNode.choices?.length > 0 ? (
