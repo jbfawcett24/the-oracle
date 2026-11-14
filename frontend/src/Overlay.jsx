@@ -38,14 +38,53 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
       >
         <header
           css={css`
-            border: 2px solid black;
+            position: relative;
+            width: min(46vw, 460px);
             margin: 0 auto 1rem;
-            max-width: 720px;
-            padding: 1rem;
+            color: #5a3018;
+            font-family: Georgia, 'Times New Roman', serif;
             text-align: center;
           `}
         >
-          <h1 css={css`font-size: 2rem; font-weight: 400;`}>{month}</h1>
+          <img
+            src="/Info_Scroll.webp"
+            alt="Information scroll"
+            css={css`
+              display: block;
+              width: 100%;
+              height: auto;
+            `}
+          />
+          <h1
+            css={css`
+              position: absolute;
+              top: 27%;
+              left: 12%;
+              width: 76%;
+              color: inherit;
+              font-size: clamp(1.2rem, 2.9vw, 2.2rem);
+              font-weight: 700;
+              line-height: 1;
+              text-shadow: 1px 1px 0 rgba(255, 226, 164, 0.5);
+            `}
+          >
+            {month}
+          </h1>
+          <p
+            css={css`
+              position: absolute;
+              top: 61%;
+              left: 12%;
+              width: 76%;
+              color: inherit;
+              font-size: calc(clamp(0.79rem, 1.26vw, 1rem) + 5px);
+              font-weight: 700;
+              line-height: 1;
+              text-shadow: 1px 1px 0 rgba(255, 226, 164, 0.5);
+            `}
+          >
+            {titleCase(screen)}
+          </p>
         </header>
 
         <nav
@@ -74,17 +113,6 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
               ←
             </button>
           )}
-
-          <div
-            css={css`
-              border: 1px solid black;
-              min-width: 10rem;
-              padding: 0.75rem 1.5rem;
-              text-align: center;
-            `}
-          >
-            {titleCase(screen)}
-          </div>
 
           {screen !== 'town' && (
             <button
