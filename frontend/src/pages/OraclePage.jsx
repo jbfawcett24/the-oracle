@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { css } from '@emotion/react'
 import ArrowButton from '../components/ArrowButton'
 
-const API_URL = 'http://localhost:3001/api/oracle'
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost:3001/api' : '/api')
+const API_URL = `${API_BASE_URL.replace(/\/$/, '')}/oracle`
 
 export default function OraclePage({
   history,
