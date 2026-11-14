@@ -1,4 +1,5 @@
 import { css, Global } from '@emotion/react'
+import ArrowButton from './components/ArrowButton'
 
 function titleCase(value) {
   return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
@@ -7,22 +8,6 @@ function titleCase(value) {
 export default function Overlay({ toOracle, toTown, toFarm, screen, month, children }) {
   return (
     <>
-      <Global
-        styles={css`
-          * { box-sizing: border-box; margin: 0; padding: 0; }
-          body { background: white; color: black; font-family: sans-serif; }
-          button {
-            background: white;
-            border: 1px solid black;
-            color: black;
-            cursor: pointer;
-            font: inherit;
-            padding: 0.35rem 0.75rem;
-          }
-          button:hover { background: #f0f0f0; }
-        `}
-      />
-
       <div
         css={css`
           left: 0;
@@ -98,27 +83,25 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
           `}
         >
           {screen !== 'farm' && (
-            <button
-              type="button"
-              onClick={toFarm}
-              aria-label="Go to Farm"
+            <div
               css={css`
-                left: 0;
                 position: fixed;
+                left: 20px;
                 top: 50%;
                 transform: translateY(-50%);
                 pointer-events: auto;
               `}
             >
-              ←
-            </button>
+              <ArrowButton
+                direction='left'
+                text="farm"
+                onClick={toFarm}
+              />
+            </div>
           )}
 
           {screen !== 'town' && (
-            <button
-              type="button"
-              onClick={toTown}
-              aria-label="Go to Town"
+            <div
               css={css`
                 position: fixed;
                 right: 0;
@@ -127,14 +110,11 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
                 pointer-events: auto;
               `}
             >
-              →
-            </button>
+              <ArrowButton direction="right" text="town" onClick={toTown} />
+            </div>
           )}
 
-          <button
-            type="button"
-            onClick={toOracle}
-            aria-label="Go to Oracle"
+          <div
             css={css`
               bottom: 0;
               left: 50%;
@@ -143,8 +123,8 @@ export default function Overlay({ toOracle, toTown, toFarm, screen, month, child
               pointer-events: auto;
             `}
           >
-            ↓
-          </button>
+            <ArrowButton direction="down" text="oracle" onClick={toOracle} />
+          </div>
         </nav>
       </div>
 

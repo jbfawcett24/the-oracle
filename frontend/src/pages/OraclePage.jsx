@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { css } from '@emotion/react'
+import ArrowButton from '../components/ArrowButton'
 
 const API_URL = 'http://localhost:3001/api/oracle'
 
@@ -85,8 +86,8 @@ export default function OraclePage({
           justify-content: space-around;
         `}
       >
-        <button onClick={toFarm}>↑</button>
-        <button onClick={toTown}>↑</button>
+        <ArrowButton direction="up" text="farm" onClick={toFarm} />
+        <ArrowButton direction="up" text="town" onClick={toTown} />
       </div>
       <h1>The Oracle</h1>
 
