@@ -15,6 +15,37 @@ const llm = new OpenAi({
   apiKey: env.LLM_API_KEY,
 })
 
+const modelCandidates = () => [
+  env.LLM_MODEL,
+  ...(env.LLM_FALLBACK_MODELS ?? "")
+    .split(",")
+    .map((model) => model.trim())
+    .filter(Boolean),
+].filter((model, index, models) => model && models.indexOf(model) === index)
+
+const isRateLimitError = (err) =>
+  err?.status === 429 ||
+  err?.statusCode === 429 ||
+  err?.code === "rate_limit_exceeded" ||
+  /rate.?limit|too many requests/i.test(err?.message ?? "")
+
+const createCompletion = async (request) => {
+  let lastRateLimitError
+
+  for (const model of modelCandidates()) {
+    try {
+      return await llm.chat.completions.create({ ...request, model })
+    } catch (err) {
+      if (!isRateLimitError(err)) throw err
+
+      lastRateLimitError = err
+      console.log(`Model ${model} is rate limited; trying the next fallback.`)
+    }
+  }
+
+  throw lastRateLimitError ?? new Error("No LLM models configured")
+}
+
 const parseJson = (raw) => {
   if (typeof raw !== "string") throw new Error("Model returned no text")
 
@@ -83,8 +114,7 @@ app.post("/api/oracle", async (req, res) => {
   } = req.body ?? {}
 
   try {
-    const completion = await llm.chat.completions.create({
-      model: env.LLM_MODEL,
+    const completion = await createCompletion({
       temperature: 0.9,
       response_format: { type: "json_object" },
       messages: [
@@ -127,8 +157,7 @@ app.post("/api/npc", async (req, res) => {
   }
 
   try {
-    const completion = await llm.chat.completions.create({
-      model: env.LLM_MODEL,
+    const completion = await createCompletion({
       temperature: 0.9,
       response_format: { type: "json_object" },
       messages: [
