@@ -1,17 +1,43 @@
+import { css } from '@emotion/react'
 import Villager from "./Villager"
+
+const page = css`
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: #5c371c;
+`
+
+const villageFrame = css`
+    position: relative;
+    width: 100%;
+    height: 100%;
+`
+
+const villageImage = css`
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+`
 
 export default function Village({ }) {
     return(
-        <>
-            <Villager name={"Jarnathan"}>
+        <main css={page}>
+            <section css={villageFrame}>
+                <img css={villageImage} src="/Village.webp" alt="Pixel-art village" />
+                <Villager name={"Jarnathan"}>
 
-            </Villager>
-            <Villager name={"Meredeth"}>
+                </Villager>
+                <Villager name={"Meredeth"}>
 
-            </Villager>
-            <Villager name={"Herm"}>
+                </Villager>
+                <Villager name={"Herm"}>
 
-            </Villager>
-        </>
+                </Villager>
+            </section>
+        </main>
     )
 }
