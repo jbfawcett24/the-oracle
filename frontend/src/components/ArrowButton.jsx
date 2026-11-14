@@ -7,15 +7,24 @@ const arrowRotations = {
   down: 90,
 }
 
+const directionAliases = {
+  north: 'up',
+  east: 'right',
+  south: 'down',
+  west: 'left',
+}
+
 export default function ArrowButton({ onClick, direction = 'up', text }) {
-  const rotation = arrowRotations[String(direction).toLowerCase()] ?? 0
+  const normalizedDirection = String(direction).toLowerCase()
+  const tooltipDirection = directionAliases[normalizedDirection] ?? normalizedDirection
+  const rotation = arrowRotations[normalizedDirection] ?? 0
 
   return (
     <button
       type="button"
       onClick={() => onClick?.()}
       aria-label={text}
-      title={text}
+      data-direction={tooltipDirection}
       css={css`
         align-items: center;
         background: transparent;
@@ -39,6 +48,39 @@ export default function ArrowButton({ onClick, direction = 'up', text }) {
           opacity: 1;
           transform: translate(-50%, 0);
           visibility: visible;
+        }
+
+        &[data-direction='down'] > .arrow-button__label {
+          bottom: calc(100% + 0.5rem);
+          top: auto;
+          transform: translate(-50%, 0.25rem);
+        }
+
+        &[data-direction='left'] > .arrow-button__label {
+          bottom: auto;
+          left: calc(100% + 0.5rem);
+          top: 50%;
+          transform: translate(-0.25rem, -50%);
+        }
+
+        &[data-direction='right'] > .arrow-button__label {
+          bottom: auto;
+          left: auto;
+          right: calc(100% + 0.5rem);
+          top: 50%;
+          transform: translate(0.25rem, -50%);
+        }
+
+        &[data-direction='down']:hover > .arrow-button__label {
+          transform: translate(-50%, 0);
+        }
+
+        &[data-direction='left']:hover > .arrow-button__label {
+          transform: translate(0, -50%);
+        }
+
+        &[data-direction='right']:hover > .arrow-button__label {
+          transform: translate(0, -50%);
         }
       `}
     >
@@ -86,8 +128,8 @@ export default function ArrowButton({ onClick, direction = 'up', text }) {
         role="tooltip"
         css={css`
           background: #111;
-          bottom: calc(100% + 0.5rem);
           color: white;
+          top: calc(100% + 0.5rem);
           left: 50%;
           max-width: 14rem;
           opacity: 0;
