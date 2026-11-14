@@ -23,18 +23,27 @@ const villageImage = css`
     object-fit: fill;
 `
 
-export default function Village({ }) {
+export default function Village({ currentMonth }) {
     return(
         <main css={page}>
             <section css={villageFrame}>
                 <img css={villageImage} src="/Village.webp" alt="Pixel-art village" />
-                <Villager name={"Jarnathan"}>
+                <Villager 
+                    name={"Jarnathan"}
+                    currentMonth={currentMonth}
+                >
 
                 </Villager>
-                <Villager name={"Meredeth"}>
+                <Villager 
+                    name={"Meredeth"}
+                    currentMonth={currentMonth}
+                    >
 
                 </Villager>
-                <Villager name={"Herm"}>
+                <Villager 
+                    name={"Herm"}
+                    currentMonth={currentMonth}
+                    >
 
                 </Villager>
             </section>
