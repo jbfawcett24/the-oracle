@@ -81,6 +81,7 @@ function App() {
   ])
 
   const currentMonth = gameState[currentMonthIndex] ?? gameState[0]
+  const nextMonthProblem = gameState[currentMonthIndex + 1]?.monthlyIssue
 
   const requiredItem = currentMonth?.monthlySolution?.[1]
 
@@ -159,6 +160,7 @@ function App() {
           toFarm={toFarm}
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
+          nextMonthProblem={nextMonthProblem}
           toNextMonth={toNextMonth}
         >
           <>
@@ -181,6 +183,7 @@ function App() {
           toFarm={toFarm}
           toTown={toTown}
           canAdvanceMonth={isMonthComplete && currentMonthIndex < gameState.length - 1}
+          nextMonthProblem={nextMonthProblem}
           toNextMonth={toNextMonth}
         >
           <FarmPage

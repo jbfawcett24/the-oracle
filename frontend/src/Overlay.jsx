@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { css, Global } from '@emotion/react'
 import ArrowButton from './components/ArrowButton'
 
@@ -13,9 +13,17 @@ export default function Overlay({
   screen,
   month,
   canAdvanceMonth,
+  nextMonthProblem,
   toNextMonth,
   children,
 }) {
+  const [problemPopup, setProblemPopup] = useState(null)
+
+  function handleNextMonth() {
+    toNextMonth()
+    setProblemPopup(nextMonthProblem)
+  }
+
   useEffect(() => {
     function handleKeyDown(event) {
       const navigation = {
@@ -164,7 +172,7 @@ export default function Overlay({
           {canAdvanceMonth && (
             <button
               type="button"
-              onClick={toNextMonth}
+              onClick={handleNextMonth}
               css={css`
                 bottom: 1rem;
                 right: 1rem;
@@ -197,6 +205,79 @@ export default function Overlay({
           )}
         </nav>
       </div>
+
+      {problemPopup && (
+        <div
+          role="presentation"
+          onClick={() => setProblemPopup(null)}
+          css={css`
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: grid;
+            place-items: center;
+            background: rgba(42, 25, 9, 0.45);
+            pointer-events: auto;
+          `}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="new-month-problem"
+            onClick={(event) => event.stopPropagation()}
+            css={css`
+              position: relative;
+              width: min(32rem, calc(100vw - 2rem));
+              padding: 3.5rem 2.5rem 2.5rem;
+              border: 4px solid #5a3018;
+              border-radius: 12px;
+              background: #f4d49a;
+              box-shadow: 6px 6px 0 rgba(42, 25, 9, 0.45);
+              color: #5a3018;
+              text-align: center;
+              pointer-events: auto;
+            `}
+          >
+            <button
+              type="button"
+              onClick={() => setProblemPopup(null)}
+              aria-label="Close problem"
+              css={css`
+                position: absolute;
+                top: 0.5rem;
+                right: 0.75rem;
+                border: 0;
+                background: transparent;
+                color: #5a3018;
+                cursor: pointer;
+                font: inherit;
+                font-size: 1.75rem;
+                font-weight: 700;
+              `}
+            >
+              ×
+            </button>
+            <h2
+              id="new-month-problem"
+              css={css`
+                margin-bottom: 1rem;
+                font-size: clamp(1.25rem, 4vw, 1.8rem);
+              `}
+            >
+              {month} problem
+            </h2>
+            <p
+              css={css`
+                font-size: clamp(1rem, 3vw, 1.25rem);
+                font-weight: 700;
+                line-height: 1.4;
+              `}
+            >
+              {problemPopup}
+            </p>
+          </section>
+        </div>
+      )}
 
       <div
         css={css`
