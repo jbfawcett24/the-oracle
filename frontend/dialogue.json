@@ -1,0 +1,101 @@
+{
+  "dialogue": {
+    "January": {
+      "Jarnathan": {
+        "start": {
+          "id": "start",
+          "text": "Oh hello! You must be new around here. My name's Jarnathan, and I'm the mayor of this small village. Have you been to see the Oracle yet? It's one of the best things about our town! I use the Oracle for positively everything!",
+          "choices": [
+            {
+              "text": "What's the name of this town?",
+              "next": "townName"
+            },
+            {
+              "text": "Hello Jarnathan! My name is {{playerName}}",
+              "next": "userName"
+            },
+            {
+              "text": "What's the Oracle?",
+              "next": "whatIsOracle"
+            }
+          ]
+        },
+        "townName": {
+          "id": "townName",
+          "text": "Oh, uhm. I'm not sure actually! I think I forgot. I'm sure you could ask the Oracle though!",
+          "choices": [
+            {
+              "text": "What's the Oracle?",
+              "next": "whatIsOracle"
+            },
+            {
+              "text": "Alright then. I'll go ask.",
+              "next": "end"
+            }
+          ]
+        },
+        "userName": {
+          "id": "userName",
+          "text": "Hello {{playerName}}! What would you like to know about our humble town?",
+          "choices": [
+            {
+              "text": "What's the Oracle?",
+              "next": "whatIsOracle"
+            },
+            {
+              "text": "Who lives here?",
+              "next": "inhabitants"
+            },
+            {
+              "text": "What sorts of things can I grow on my farm?",
+              "next": "whatToGrow"
+            }
+          ]
+        },
+        "inhabitants": {
+          "id": "inhabitants",
+          "text": "Well there's me, of course. Herm, the shopkeep, and Meredeth, the widower. We've all lived in this town for so long, the Oracle is basically all that's holding the town together.",
+          "choices": [
+            {
+              "text": "What's the Oracle?",
+              "next": "whatIsOracle"
+            },
+            {
+              "text": "Alright then. Let me go talk to them",
+              "next": "end"
+            }
+          ]
+        },
+        "whatToGrow": {
+          "id": "whatToGrow",
+          "text": "Oh, uhm. I'm not sure! I'm not all that familiar with farming and such. But you can surely ask the Oracle! The Oracle would be able to answer your questions, surely",
+          "choices": [
+            {
+              "text": "What's the Oracle?",
+              "next": "whatIsOracle"
+            },
+            {
+              "text": "Alright then. I'll go ask.",
+              "next": "end"
+            }
+          ]
+        },
+        "whatIsOracle": {
+          "id": "whatIsOracle",
+          "text": "The Oracle is positively the best thing that has ever happened to this town! It answers all questions you could posibly ask it! I think it has to know everything, with all the answers it can give",
+          "choices": [
+            {
+              "text": "I'll go talk to the Oracle then!",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id": "end",
+          "text": "Alright! Well, if you need anything else, the Oracle would sure be able to help you!",
+          "choices": []
+        }
+      }
+    }
+  }
+}
