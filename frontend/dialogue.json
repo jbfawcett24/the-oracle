@@ -95,6 +95,83 @@
           "text": "Alright! Well, if you need anything else, the Oracle would sure be able to help you!",
           "choices": []
         }
+      },
+      "Meredeth": {
+        "start": {
+          "id": "start",
+          "text": "Why hello, young stranger. Who might you be? My name is Meredeth.",
+          "choices": [
+            {
+              "text": "Hello! My name is {{name of user}}. Tell me about yourself",
+              "next": "userName"
+            }, 
+            {
+              "text": "What can you tell me about this village.",
+              "next": "askVilage"
+            },
+            {
+              "text": "I'm a new farmer. Would you know how to grow things here?",
+              "next": "askAboutFarm"
+            }
+          ]
+        },
+        "userName": {
+          "id": "userName",
+          "text": "Hello, {{username}}. As I said, my name is Meredeth. These days, I putter around and tend the gardens in town. My husband, Carr used to farm the very land you live on now. Until he died, I used to help him on the farm.",
+          "choices": [
+            {
+              "text": "Oh, would you be able to teach me how to farm?",
+              "next": "askAboutFarm"
+            },
+            {
+              "text": "What can you tell me about the village?",
+              "next": "askVilage"
+            }
+          ]
+        },
+        "askVilage": {
+          "id": "askVillage",
+          "text": "This town used to be a thriving farming community, until most of the wells ran dry. After that, people moved out, except for my husband I, as well as the mayor and Herm. And after that, many of the jobs that us four couldn't do were replaced by the Oracle. It filled every niche we couldn't, until you got here. I suppose you could work on the farm, until it learns how to farm for us.",
+          "choices": [
+            {
+              "text": "How could the Oracle replace me?",
+              "next": "askAboutOracle"
+            },
+            {
+              "text": "Would you be able to teach me how to farm?",
+              "next": "askAboutOracle"
+            }
+          ]
+        },
+        "askAboutFarm": {
+          "id": "askAboutFarm",
+          "text": "Oh, the Oracle will be farming for you soon enough. It's already taken over much of the jobs that were left unfulfilled when the town emptied, and I am sure it will learn how to do your job soon, too. It's learned so much these past years, and soon enough it will learn how to farm also.",
+          "choices": [
+            {
+              "text": "But how is it going to plant seeds and water crops?",
+              "next": "howOracleFarm"
+            },
+            {
+              "text": "If you say so.",
+              "next": "end"
+            }
+          ]
+        },
+        "howOracleFarm": {
+          "id":"howOracleFarm",
+          "text": "Well, fifteen years ago I wouldn't think it could tell me when to weed and when to prune, but it can now. You young folk always think you know everything, but soon enough you'll see that time passes you by. And if you don't keep with the way of things, you'll be left behind.",
+          "choices": [
+            {
+              "text": "If you say so.",
+              "next": "end"
+            }
+          ]
+        },
+        "end": {
+          "id":"end",
+          "text": "I do say so. Just you wait and see, it will happen soon enough.",
+          "choicess": []
+        }
       }
     }
   }
